@@ -5,6 +5,10 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -36,6 +40,31 @@ public class TimeUtils {
         return timer;
     }
 
+    // Hiển thị kiểu "20/04/2025 09:00 sáng"
+    public static String formatDateTimeShort(LocalDateTime ldt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a", Locale.getDefault());
+        return ldt.format(formatter);
+    }
+
+    // Hiển thị kiểu "Thứ Hai, 20 tháng 4, 2025"
+    public static String formatDateTimeLong(LocalDateTime ldt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d 'tháng' M, yyyy", new Locale("vi", "VN"));
+        return ldt.format(formatter);
+    }
+
+    // Chuyển LocalDateTime → millis
+    public static long localDateTimeToMillis(LocalDateTime ldt) {
+        ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+        return zdt.toInstant().toEpochMilli();
+    }
+
+    // Chuyển millis → LocalDateTime (ngược lại)
+    public static LocalDateTime millisToLocalDateTime(long millis) {
+        return LocalDateTime.ofInstant(
+                java.time.Instant.ofEpochMilli(millis),
+                ZoneId.systemDefault()
+        );
+    }
 
     // Chuyển từ milliseconds -> ngày/giờ/phút/giây
     public static String formatDuration(long millis) {
