@@ -1,4 +1,4 @@
-package com.example.n7_countdown.data;
+package com.example.n7_countdown.models;
 
 import java.time.LocalDateTime;
 
