@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/eventNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập tên sự kiện" />
+
+    <TextView
+        android:id="@+id/selectedDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chưa chọn thời gian"
+        android:textSize="16sp"
+        android:paddingTop="10dp" />
+
+    <Button
+        android:id="@+id/pickDateTimeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn ngày &amp; giờ" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bắt đầu đếm ngược"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
