@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.n7_countdown.activities.AddEventActivity;
 import com.example.n7_countdown.utils.TimeUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button addEventButton = findViewById(R.id.addEventButton);
+        FloatingActionButton addEventButton = findViewById(R.id.fabAddCountdown);
         addEventButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
             startActivity(intent);

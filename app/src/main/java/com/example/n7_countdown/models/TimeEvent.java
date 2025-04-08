@@ -17,6 +17,10 @@ public class TimeEvent {
     private long createdAt;
     private String imageUri;
 
+    public TimeEvent() {
+
+    }
+
     public TimeEvent(String name, LocalDateTime timestamp, long timestampMillis, String note, String location, boolean isReminder, long reminderTimeMillis, String subject, int color, boolean isCountUp, long createdAt) {
         this.name = name;
         this.timestamp = timestamp;
