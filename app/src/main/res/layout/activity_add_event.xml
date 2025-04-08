@@ -1,33 +1,231 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/eventNameInput"
+    <!-- Thanh tiêu đề -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên sự kiện" />
+        android:background="#FFEBEE"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/selectedDateTime"
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="#666666"
+            android:contentDescription="Close"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thêm sự kiện"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LƯU"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#42A5F5"
+            android:paddingHorizontal="16dp"/>
+    </LinearLayout>
+
+    <!-- Vòng tròn hiển thị giá trị -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chưa chọn thời gian"
-        android:textSize="16sp"
-        android:paddingTop="10dp" />
+        android:gravity="center"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/pickDateTimeButton"
+        <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp">
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/circle_background"/>
+
+            <TextView
+                android:id="@+id/tvCountdownValue"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="7"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:text="Ngày"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Trường nhập liệu -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chọn ngày &amp; giờ" />
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <Button
-        android:id="@+id/saveButton"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chọn ngày"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:drawableStart="@android:drawable/ic_menu_my_calendar"
+            android:drawablePadding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Chọn ngày"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:gravity="end"
+            android:drawableEnd="@android:drawable/arrow_down_float"
+            android:drawablePadding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bắt đầu đếm ngược"
-        android:layout_marginTop="10dp"/>
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thời điểm"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:drawableStart="@android:drawable/ic_menu_recent_history"
+            android:drawablePadding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Thời điểm"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:gravity="end"
+            android:drawableEnd="@android:drawable/arrow_down_float"
+            android:drawablePadding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lặp lại"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerRepeat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/repeat_options"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sự kiện gì diễn ra vậy"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerEventType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/event_types"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nhắc tơi trước"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/reminder_options"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Các ghi chú của bạn"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Ghi chú..."
+            android:background="@android:drawable/editbox_background"
+            android:padding="8dp"
+            android:gravity="top|start"/>
+    </LinearLayout>
 </LinearLayout>

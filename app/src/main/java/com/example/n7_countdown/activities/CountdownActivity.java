@@ -16,7 +16,7 @@ public class CountdownActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_countdown);
+        setContentView(R.layout.menu_event_options);
 
         eventNameText = findViewById(R.id.eventNameText);
         countdownText = findViewById(R.id.countdownText);
