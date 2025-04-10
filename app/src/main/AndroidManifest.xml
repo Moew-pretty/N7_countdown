@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddEventActivity"/>
-        <activity android:name=".activities.CountdownActivity"/>
-
+        <activity android:name=".activities.AddEventActivity" />
+        <activity android:name=".activities.CountdownActivity" />
+        <activity android:name=".activities.SettingsActivity" />
     </application>
 
 </manifest>

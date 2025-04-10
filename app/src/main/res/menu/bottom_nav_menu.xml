@@ -9,6 +9,7 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="Thêm sự kiện" />
     <item
+        android:id="@+id/nav_settings"
         android:src="@drawable/settings"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="Cài đặt" />

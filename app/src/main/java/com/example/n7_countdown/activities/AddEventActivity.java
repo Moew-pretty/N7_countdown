@@ -23,7 +23,7 @@ import com.example.n7_countdown.utils.TimeUtils;
 
 import java.util.Calendar;
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddEventActivity extends BaseActivity {
     private TextView tvDate, tvTime, tvCountdownValue;
     private Spinner spinnerRepeat, spinnerEventType, spinnerReminder;
     private EditText etNotes;
@@ -37,6 +37,8 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
+        setupBottomNavigation(R.id.nav_add_event);
 
         tvDate = findViewById(R.id.tvDate);
         tvTime = findViewById(R.id.tvTime);
