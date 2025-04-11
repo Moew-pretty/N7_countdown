@@ -24,6 +24,9 @@
         <activity android:name=".activities.AddEventActivity" />
         <activity android:name=".activities.CountdownActivity" />
         <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+
     </application>
 
 </manifest>
