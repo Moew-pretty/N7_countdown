@@ -15,7 +15,7 @@ import com.example.n7_countdown.storage.UserDatabaseHelper;
 
 public class SettingsActivity extends BaseActivity {
     private LinearLayout userInfoLayout;
-    private TextView tvGroupName, tvEmail, tvError, tvRename, tvBackup, tvLogout;
+    private TextView tvGroupName, tvEmail, tvError, tvRename, tvBackup, tvLogout, tvGuide;
     private UserDatabaseHelper dbHelper;
 
     @Override
@@ -30,10 +30,15 @@ public class SettingsActivity extends BaseActivity {
         tvRename = findViewById(R.id.tvRename);
         tvBackup = findViewById(R.id.tvBackup);
         tvLogout = findViewById(R.id.tvLogout);
+        tvGuide = findViewById(R.id.tvGuide);
         dbHelper = new UserDatabaseHelper(this);
 
         setupBottomNavigation(R.id.nav_settings);
         updateUI();
+
+        tvGuide.setOnClickListener(v -> {
+            startActivity(new Intent(SettingsActivity.this, GuideActivity.class));
+        });
     }
 
     private void updateUI() {
