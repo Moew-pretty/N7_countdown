@@ -3,14 +3,13 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@android:drawable/ic_menu_today"
-        android:title="Trang chủ" />
+        android:title="@string/nav_home_title" />
     <item
         android:id="@+id/nav_add_event"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Thêm sự kiện" />
+        android:title="@string/nav_add_event_title" />
     <item
         android:id="@+id/nav_settings"
-        android:src="@drawable/settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="Cài đặt" />
+        android:title="@string/nav_settings_title" />
 </menu>

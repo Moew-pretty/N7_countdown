@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_empty_error, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -48,11 +48,11 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putBoolean("isLoggedIn", true);
                 editor.apply();
 
-                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_invalid_error, Toast.LENGTH_SHORT).show();
             }
         });
 

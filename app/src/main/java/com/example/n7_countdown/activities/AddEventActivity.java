@@ -96,7 +96,7 @@ public class AddEventActivity extends BaseActivity {
         String imageUri = "";
 
         if (selectedMillis == 0) {
-            Toast.makeText(this, "Vui lòng chọn ngày giờ!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_no_datetime, Toast.LENGTH_SHORT).show();
             return;
         }
 

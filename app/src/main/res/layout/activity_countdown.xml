@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -5,9 +6,7 @@
     android:background="@drawable/space_background"
     android:padding="20dp">
 
-
     <!-- Tiêu đề đếm ngược -->
-
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
@@ -19,7 +18,6 @@
         android:background="@android:color/transparent"
         android:tint="#FFFFFF"
         app:srcCompat="@drawable/edit" />
-
 
     <LinearLayout
         android:id="@+id/eventInfoLayout"
@@ -35,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Sự kiện: Thi tốt nghiệp"
+            android:text="@string/event_name_prefix"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -45,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Địa điểm: Trường THPT ABC"
+            android:text="@string/event_location_prefix"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
@@ -53,7 +51,7 @@
             android:id="@+id/eventNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ghi chú: Nhớ mang theo CMND và bút xanh."
+            android:text="@string/event_note_prefix"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
     </LinearLayout>
@@ -62,7 +60,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TỪ NAY ĐẾN NGÀY CUỐI CÒN"
+        android:text="@string/countdown_title"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -91,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NGÀY"
+            android:text="@string/days_unit"
             android:textColor="#FFFFFF"
             android:layout_marginEnd="20dp" />
 
@@ -106,7 +104,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GIỜ"
+            android:text="@string/hours_unit"
             android:textColor="#FFFFFF"
             android:layout_marginEnd="20dp" />
 
@@ -121,7 +119,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PHÚT"
+            android:text="@string/minutes_unit"
             android:textColor="#FFFFFF"
             android:layout_marginEnd="20dp" />
 
@@ -136,7 +134,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GIÂY"
+            android:text="@string/seconds_unit"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
@@ -161,14 +159,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Thay ảnh nền"
+            android:text="@string/change_background"
             android:textColor="#FBFAFA"
             android:textSize="16sp" />
     </LinearLayout>
 
-
     <!-- Nút quay lại ở góc dưới bên trái -->
-
     <LinearLayout
         android:id="@+id/backButtonLayout"
         android:layout_width="wrap_content"
@@ -185,18 +181,16 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_left"
             android:tint="#FFFFFF"
-            android:contentDescription="Quay lại" />
+            android:contentDescription="Back" />
 
         <TextView
             android:id="@+id/backText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="QUAY LẠI"
+            android:text="@string/back_button"
             android:textColor="#FDFBFB"
             android:textSize="20sp" />
     </LinearLayout>
-
-
 
 </RelativeLayout>

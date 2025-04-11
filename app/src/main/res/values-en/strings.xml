@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">N7_Countdown</string>
+
+    <!-- LoginActivity -->
+    <string name="login_title">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_prompt">Don\'t have an account? Register</string>
+    <string name="login_empty_error">Please fill in all fields</string>
+    <string name="login_invalid_error">Incorrect email or password</string>
+    <string name="login_success">Login successful</string>
+
+    <!-- RegisterActivity -->
+    <string name="register_title">Register</string>
+    <string name="group_name_hint">Group Name</string>
+    <string name="register_button">Register</string>
+    <string name="login_prompt">Already have an account? Login</string>
+    <string name="register_empty_error">Please fill in all fields</string>
+    <string name="register_email_exists">Email already exists</string>
+    <string name="register_success">Registration successful</string>
+
+    <!-- MainActivity -->
+    <string name="today_label">Today...</string>
+    <string name="event_name_example">Final Exam</string>
+    <string name="event_date_example">03/29/2025 08:58</string>
+    <string name="event_countdown_example">00:01:24</string>
+    <string name="event_group_example">7N</string>
+
+    <!-- SettingsActivity -->
+    <string name="settings_title">Settings</string>
+    <string name="group_name_default">Group 7</string>
+    <string name="email_default">khongthienphien@gmail.com</string>
+    <string name="error_not_logged_in">Please log in to use all features</string>
+    <string name="error_user_not_found">User information not found</string>
+    <string name="rename_option">Rename</string>
+    <string name="backup_option">Backup</string>
+    <string name="language_option">Language</string>
+    <string name="theme_option">Theme</string>
+    <string name="new_features_option">Update New Features</string>
+    <string name="feedback_option">Feedback</string>
+    <string name="invite_friends_option">Invite Friends</string>
+    <string name="guide_option">User Guide</string>
+    <string name="report_bug_option">Report Bug</string>
+    <string name="logout_option">Logout</string>
+    <string name="version_label">Version 1.1.1</string>
+
+    <!-- GuideActivity -->
+    <string name="guide_title">User Guide</string>
+    <string name="guide_step1_title">1. Login or Register</string>
+    <string name="guide_step1_content">To use all features, you need to log in. From the main screen, tap \'Login\' or \'Register\' to create a new account.</string>
+    <string name="guide_step2_title">2. Add a New Event</string>
+    <string name="guide_step2_content">Tap the \'+\' icon or the \'Add Event\' option from the bottom navigation. Enter the event name, date, time, and save.</string>
+    <string name="guide_step3_title">3. View Countdown</string>
+    <string name="guide_step3_content">Return to the main screen to see a list of events with their countdown timers updated automatically.</string>
+    <string name="guide_step4_title">4. Edit or Delete Events</string>
+    <string name="guide_step4_content">Tap the settings icon on an event card to edit or delete it. You can also add notes if needed.</string>
+    <string name="guide_step5_title">5. Customize the App</string>
+    <string name="guide_step5_content">From the \'Settings\' screen, you can change the language, theme, or back up event data.</string>
+
+    <!-- AddEventActivity -->
+    <string name="add_event_title">Add Event</string>
+    <string name="save_button">SAVE</string>
+    <string name="days_label">Days</string>
+    <string name="select_date_label">Select Date</string>
+    <string name="select_date_hint">Select Date</string>
+    <string name="select_time_label">Time</string>
+    <string name="select_time_hint">Time</string>
+    <string name="repeat_label">Repeat</string>
+    <string name="event_type_label">What event is it?</string>
+    <string name="reminder_label">Remind me before</string>
+    <string name="notes_label">Your Notes</string>
+    <string name="notes_hint">Notes...</string>
+    <string name="error_no_datetime">Please select date and time!</string>
+    <string-array name="repeat_options">
+        <item>No Repeat</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="event_types">
+        <item>Exam</item>
+        <item>Birthday</item>
+        <item>Anniversary</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="reminder_options">
+        <item>No</item>
+        <item>5 minutes before</item>
+        <item>15 minutes before</item>
+        <item>1 hour before</item>
+    </string-array>
+
+    <!-- CountdownActivity -->
+    <string name="countdown_title">FROM NOW UNTIL THE END</string>
+    <string name="event_name_prefix">Event: </string>
+    <string name="event_location_prefix">Location: </string>
+    <string name="event_note_prefix">Note: </string>
+    <string name="days_unit">DAYS</string>
+    <string name="hours_unit">HOURS</string>
+    <string name="minutes_unit">MINUTES</string>
+    <string name="seconds_unit">SECONDS</string>
+    <string name="change_background">Change Background</string>
+    <string name="back_button">BACK</string>
+
+    <!-- BottomNavMenu -->
+    <string name="nav_home_title">Home</string>
+    <string name="nav_add_event_title">Add Event</string>
+    <string name="nav_settings_title">Settings</string>
+
+    <!-- Language selection -->
+    <string name="select_language">Select Language</string>
+    <string name="language_vietnamese">Vietnamese</string>
+    <string name="language_english">English</string>
+    <string name="language_chinese">Chinese</string>
+</resources>

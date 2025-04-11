@@ -36,16 +36,16 @@ public class RegisterActivity extends AppCompatActivity {
             String groupName = etGroupName.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty() || groupName.isEmpty()) {
-                Toast.makeText(RegisterActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.register_empty_error, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (dbHelper.addUser(email, password, groupName)) {
-                Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 finish();
             } else {
-                Toast.makeText(RegisterActivity.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.register_email_exists, Toast.LENGTH_SHORT).show();
             }
         });
 

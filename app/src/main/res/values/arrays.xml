@@ -1,25 +1,25 @@
 <resources>
-    <string-array name="countdown_units">
-        <item>Ngày</item>
-        <item>Giờ</item>
-        <item>Phút</item>
-    </string-array>
-        <string-array name="repeat_options">
-            <item>Yes</item>
-            <item>No</item>
-        </string-array>
+<!--    <string-array name="countdown_units">-->
+<!--        <item>Ngày</item>-->
+<!--        <item>Giờ</item>-->
+<!--        <item>Phút</item>-->
+<!--    </string-array>-->
+<!--        <string-array name="repeat_options">-->
+<!--            <item>Yes</item>-->
+<!--            <item>No</item>-->
+<!--        </string-array>-->
 
-        <string-array name="event_types">
-            <item>1 ngày</item>
-            <item>1 tuần</item>
-            <item>1 tháng</item>
-            <item>1 năm</item>
-        </string-array>
+<!--        <string-array name="event_types">-->
+<!--            <item>1 ngày</item>-->
+<!--            <item>1 tuần</item>-->
+<!--            <item>1 tháng</item>-->
+<!--            <item>1 năm</item>-->
+<!--        </string-array>-->
 
-        <string-array name="reminder_options">
-            <item>1 ngày</item>
-            <item>1 tuần</item>
-            <item>1 giờ</item>
-            <item>30 phút</item>
-        </string-array>
+<!--        <string-array name="reminder_options">-->
+<!--            <item>1 ngày</item>-->
+<!--            <item>1 tuần</item>-->
+<!--            <item>1 giờ</item>-->
+<!--            <item>30 phút</item>-->
+<!--        </string-array>-->
 </resources>

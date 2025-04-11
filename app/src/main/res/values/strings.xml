@@ -1,3 +1,117 @@
 <resources>
-    <string name="app_name">N7_countdown</string>
+    <string name="app_name">N7 Countdown</string>
+
+    <!-- LoginActivity -->
+    <string name="login_title">Đăng nhập</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="register_prompt">Chưa có tài khoản? Đăng ký</string>
+    <string name="login_empty_error">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="login_invalid_error">Email hoặc mật khẩu không đúng</string>
+    <string name="login_success">Đăng nhập thành công</string>
+
+    <!-- RegisterActivity -->
+    <string name="register_title">Đăng ký</string>
+    <string name="group_name_hint">Tên nhóm</string>
+    <string name="register_button">Đăng ký</string>
+    <string name="login_prompt">Đã có tài khoản? Đăng nhập</string>
+    <string name="register_empty_error">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="register_email_exists">Email đã tồn tại</string>
+    <string name="register_success">Đăng ký thành công</string>
+
+    <!-- MainActivity -->
+    <string name="today_label">Hôm nay...</string>
+    <string name="event_name_example">Thi tốt nghiệp</string>
+    <string name="event_date_example">29/03/2025 08:58</string>
+    <string name="event_countdown_example">00:01:24</string>
+    <string name="event_group_example">7N</string>
+
+    <!-- SettingsActivity -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="group_name_default">Nhóm 7</string>
+    <string name="email_default">khongthienphien@gmail.com</string>
+    <string name="error_not_logged_in">Vui lòng đăng nhập để sử dụng đầy đủ tính năng</string>
+    <string name="error_user_not_found">Không tìm thấy thông tin người dùng</string>
+    <string name="rename_option">Đổi tên</string>
+    <string name="backup_option">Sao lưu</string>
+    <string name="language_option">Ngôn ngữ</string>
+    <string name="theme_option">Giao diện</string>
+    <string name="new_features_option">Cập nhật tính năng mới</string>
+    <string name="feedback_option">Ý kiến</string>
+    <string name="invite_friends_option">Mời bạn bè</string>
+    <string name="guide_option">Hướng dẫn sử dụng</string>
+    <string name="report_bug_option">Báo lỗi</string>
+    <string name="logout_option">Đăng xuất</string>
+    <string name="version_label">Phiên bản 1.1.1</string>
+
+    <!-- GuideActivity -->
+    <string name="guide_title">Hướng dẫn sử dụng</string>
+    <string name="guide_step1_title">1. Đăng nhập hoặc đăng ký</string>
+    <string name="guide_step1_content">Để sử dụng đầy đủ tính năng, bạn cần đăng nhập. Từ màn hình chính, nhấn vào \'Đăng nhập\' hoặc \'Đăng ký\' để tạo tài khoản mới.</string>
+    <string name="guide_step2_title">2. Thêm sự kiện mới</string>
+    <string name="guide_step2_content">Nhấn vào biểu tượng \'+\' hoặc mục \'Thêm sự kiện\' từ thanh điều hướng dưới cùng. Nhập tên sự kiện, ngày giờ diễn ra, và lưu lại.</string>
+    <string name="guide_step3_title">3. Xem thời gian đếm ngược</string>
+    <string name="guide_step3_content">Quay lại màn hình chính, bạn sẽ thấy danh sách các sự kiện với thời gian đếm ngược được cập nhật tự động.</string>
+    <string name="guide_step4_title">4. Chỉnh sửa hoặc xóa sự kiện</string>
+    <string name="guide_step4_content">Nhấn vào biểu tượng cài đặt trên thẻ sự kiện để chỉnh sửa hoặc xóa. Bạn cũng có thể thêm ghi chú nếu cần.</string>
+    <string name="guide_step5_title">5. Tùy chỉnh ứng dụng</string>
+    <string name="guide_step5_content">Từ màn hình \'Cài đặt\', bạn có thể thay đổi ngôn ngữ, giao diện, hoặc sao lưu dữ liệu sự kiện.</string>
+
+    <!-- AddEventActivity -->
+    <string name="add_event_title">Thêm sự kiện</string>
+    <string name="save_button">LƯU</string>
+    <string name="days_label">Ngày</string>
+    <string name="select_date_label">Chọn ngày</string>
+    <string name="select_date_hint">Chọn ngày</string>
+    <string name="select_time_label">Thời điểm</string>
+    <string name="select_time_hint">Thời điểm</string>
+    <string name="repeat_label">Lặp lại</string>
+    <string name="event_type_label">Sự kiện gì diễn ra vậy</string>
+    <string name="reminder_label">Nhắc tôi trước</string>
+    <string name="notes_label">Các ghi chú của bạn</string>
+    <string name="notes_hint">Ghi chú...</string>
+    <string name="error_no_datetime">Vui lòng chọn ngày giờ!</string>
+    <string-array name="repeat_options">
+        <item>Không lặp lại</item>
+        <item>Hàng ngày</item>
+        <item>Hàng tuần</item>
+        <item>Hàng tháng</item>
+    </string-array>
+    <string-array name="event_types">
+        <item>Thi cử</item>
+        <item>Sinh nhật</item>
+        <item>Kỷ niệm</item>
+        <item>Khác</item>
+    </string-array>
+    <string-array name="reminder_options">
+        <item>Không</item>
+        <item>5 phút trước</item>
+        <item>15 phút trước</item>
+        <item>1 giờ trước</item>
+    </string-array>
+
+    <!-- CountdownActivity -->
+    <string name="countdown_title">TỪ NAY ĐẾN NGÀY CUỐI CÒN</string>
+    <string name="event_name_prefix">Sự kiện: </string>
+    <string name="event_location_prefix">Địa điểm: </string>
+    <string name="event_note_prefix">Ghi chú: </string>
+    <string name="days_unit">NGÀY</string>
+    <string name="hours_unit">GIỜ</string>
+    <string name="minutes_unit">PHÚT</string>
+    <string name="seconds_unit">GIÂY</string>
+    <string name="change_background">Thay ảnh nền</string>
+    <string name="back_button">QUAY LẠI</string>
+
+    <!-- BottomNavMenu -->
+    <string name="nav_home_title">Trang chủ</string>
+    <string name="nav_add_event_title">Thêm sự kiện</string>
+    <string name="nav_settings_title">Cài đặt</string>
+
+    <!-- Language selection -->
+    <string name="select_language">Chọn ngôn ngữ</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_english">Tiếng Anh</string>
+    <string name="language_chinese">Tiếng Trung</string>
+
 </resources>

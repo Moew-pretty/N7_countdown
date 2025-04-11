@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">N7倒计时</string>
+
+    <!-- LoginActivity -->
+    <string name="login_title">登录</string>
+    <string name="email_hint">电子邮件</string>
+    <string name="password_hint">密码</string>
+    <string name="login_button">登录</string>
+    <string name="register_prompt">没有账户？注册</string>
+    <string name="login_empty_error">请填写所有字段</string>
+    <string name="login_invalid_error">电子邮件或密码错误</string>
+    <string name="login_success">登录成功</string>
+
+    <!-- RegisterActivity -->
+    <string name="register_title">注册</string>
+    <string name="group_name_hint">组名</string>
+    <string name="register_button">注册</string>
+    <string name="login_prompt">已有账户？登录</string>
+    <string name="register_empty_error">请填写所有字段</string>
+    <string name="register_email_exists">电子邮件已存在</string>
+    <string name="register_success">注册成功</string>
+
+    <!-- MainActivity -->
+    <string name="today_label">今天...</string>
+    <string name="event_name_example">期末考试</string>
+    <string name="event_date_example">2025年3月29日 08:58</string>
+    <string name="event_countdown_example">00:01:24</string>
+    <string name="event_group_example">7N</string>
+
+    <!-- SettingsActivity -->
+    <string name="settings_title">设置</string>
+    <string name="group_name_default">小组7</string>
+    <string name="email_default">khongthienphien@gmail.com</string>
+    <string name="error_not_logged_in">请登录以使用所有功能</string>
+    <string name="error_user_not_found">未找到用户信息</string>
+    <string name="rename_option">重命名</string>
+    <string name="backup_option">备份</string>
+    <string name="language_option">语言</string>
+    <string name="theme_option">主题</string>
+    <string name="new_features_option">更新新功能</string>
+    <string name="feedback_option">反馈</string>
+    <string name="invite_friends_option">邀请朋友</string>
+    <string name="guide_option">使用指南</string>
+    <string name="report_bug_option">报告错误</string>
+    <string name="logout_option">退出登录</string>
+    <string name="version_label">版本 1.1.1</string>
+
+    <!-- GuideActivity -->
+    <string name="guide_title">使用指南</string>
+    <string name="guide_step1_title">1. 登录或注册</string>
+    <string name="guide_step1_content">要使用所有功能，您需要登录。从主屏幕点击“登录”或“注册”以创建新账户。</string>
+    <string name="guide_step2_title">2. 添加新事件</string>
+    <string name="guide_step2_content">点击“+”图标或底部导航中的“添加事件”选项。输入事件名称、日期、时间并保存。</string>
+    <string name="guide_step3_title">3. 查看倒计时</string>
+    <string name="guide_step3_content">返回主屏幕，您将看到事件列表，计时器会自动更新。</string>
+    <string name="guide_step4_title">4. 编辑或删除事件</string>
+    <string name="guide_step4_content">点击事件卡上的设置图标以编辑或删除。您也可以根据需要添加备注。</string>
+    <string name="guide_step5_title">5. 自定义应用程序</string>
+    <string name="guide_step5_content">从“设置”屏幕，您可以更改语言、主题或备份事件数据。</string>
+
+    <!-- AddEventActivity -->
+    <string name="add_event_title">添加事件</string>
+    <string name="save_button">保存</string>
+    <string name="days_label">天</string>
+    <string name="select_date_label">选择日期</string>
+    <string name="select_date_hint">选择日期</string>
+    <string name="select_time_label">时间</string>
+    <string name="select_time_hint">时间</string>
+    <string name="repeat_label">重复</string>
+    <string name="event_type_label">是什么事件？</string>
+    <string name="reminder_label">提前提醒我</string>
+    <string name="notes_label">您的笔记</string>
+    <string name="notes_hint">笔记...</string>
+    <string name="error_no_datetime">请选择日期和时间！</string>
+    <string-array name="repeat_options">
+        <item>不重复</item>
+        <item>每天</item>
+        <item>每周</item>
+        <item>每月</item>
+    </string-array>
+    <string-array name="event_types">
+        <item>考试</item>
+        <item>生日</item>
+        <item>纪念日</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="reminder_options">
+        <item>无</item>
+        <item>提前5分钟</item>
+        <item>提前15分钟</item>
+        <item>提前1小时</item>
+    </string-array>
+
+
+    <!-- CountdownActivity -->
+    <string name="countdown_title">从现在到最后一天还有</string>
+    <string name="event_name_prefix">事件: </string>
+    <string name="event_location_prefix">地点: </string>
+    <string name="event_note_prefix">备注: </string>
+    <string name="days_unit">天</string>
+    <string name="hours_unit">小时</string>
+    <string name="minutes_unit">分钟</string>
+    <string name="seconds_unit">秒</string>
+    <string name="change_background">更换背景</string>
+    <string name="back_button">返回</string>
+
+    <!-- BottomNavMenu -->
+    <string name="nav_home_title">主页</string>
+    <string name="nav_add_event_title">添加事件</string>
+    <string name="nav_settings_title">设置</string>
+
+    <!-- Language selection -->
+    <string name="select_language">选择语言</string>
+    <string name="language_vietnamese">越南语</string>
+    <string name="language_english">英语</string>
+    <string name="language_chinese">中文</string>
+</resources>

@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng ký"
+        android:text="@string/register_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
@@ -18,7 +18,7 @@
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="16dp"/>
 
@@ -26,7 +26,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mật khẩu"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:layout_marginBottom="16dp"/>
 
@@ -34,7 +34,7 @@
         android:id="@+id/etGroupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên nhóm"
+        android:hint="@string/group_name_hint"
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
@@ -42,14 +42,14 @@
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đăng ký"
+        android:text="@string/register_button"
         android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đã có tài khoản? Đăng nhập"
+        android:text="@string/login_prompt"
         android:textColor="@color/blue"
         android:layout_marginTop="8dp"/>
 
