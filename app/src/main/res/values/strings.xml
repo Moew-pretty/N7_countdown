@@ -92,7 +92,7 @@
     </string-array>
 
     <!-- CountdownActivity -->
-    <string name="countdown_title">TỪ NAY ĐẾN NGÀY CUỐI CÒN</string>
+    <string name="countdown_title">ĐẾM NGƯỢC</string>
     <string name="event_name_prefix">Sự kiện: </string>
     <string name="event_location_prefix">Địa điểm: </string>
     <string name="event_note_prefix">Ghi chú: </string>

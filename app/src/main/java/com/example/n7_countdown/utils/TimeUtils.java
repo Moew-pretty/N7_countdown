@@ -27,12 +27,37 @@ public class TimeUtils {
         CountDownTimer timer = new CountDownTimer(timeRemaining, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                textView.setText(formatDuration(millisUntilFinished));
+                textView.setText(formatDurationSmart(millisUntilFinished));
             }
 
             @Override
             public void onFinish() {
-                textView.setText("Đã đến thời điểm!");
+                textView.setText("Kết thúc!");
+            }
+        };
+
+        timer.start();
+        return timer;
+    }
+
+    public static CountDownTimer startCountdownTimerHMSOnly(long targetMillis, TextView textView) {
+        long currentMillis = System.currentTimeMillis();
+        long timeRemaining = targetMillis - currentMillis;
+
+        if (timeRemaining <= 0) {
+            textView.setText("Sự kiện đã diễn ra.");
+            return null;
+        }
+
+        CountDownTimer timer = new CountDownTimer(timeRemaining, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textView.setText(formatDurationHoursMinuteSecondOnly(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                textView.setText("Kết thúc!");
             }
         };
 
@@ -79,6 +104,36 @@ public class TimeUtils {
         String result = days + " ngày, " + hours + " giờ, " + minutes + " phút, " + seconds + " giây";
         return isFuture ? "Còn lại: " + result : "Đã qua: " + result;
     }
+
+    public static String formatDurationSmart(long millis) {
+        millis = Math.max(0, millis); // tránh số âm
+
+        long seconds = (millis / 1000) % 60;
+        long minutes = (millis / (1000 * 60)) % 60;
+        long hours = (millis / (1000 * 60 * 60)) % 24;
+        long days = millis / (1000 * 60 * 60 * 24);
+
+        if (days > 0) {
+            return days + " ngày";
+        } else if (hours > 0) {
+            return hours + " h";
+        } else if (minutes > 0) {
+            return minutes + " m";
+        } else {
+            return seconds + " s";
+        }
+    }
+
+    public static String formatDurationHoursMinuteSecondOnly(long millis) {
+        millis = Math.max(0, millis); // tránh số âm
+
+        String seconds = (millis / 1000) % 60 < 10 ? "0" + (millis / 1000) % 60 : "" + (millis / 1000) % 60;
+        String minutes = (millis / (1000 * 60)) % 60 < 10 ? "0" + (millis / (1000 * 60)) % 60 : "" + (millis / (1000 * 60)) % 60;
+        String hours = (millis / (1000 * 60 * 60)) % 24 < 10 ? "0" + (millis / (1000 * 60 * 60)) % 24 : "" + (millis / (1000 * 60 * 60)) % 24;
+
+        return hours + ":" + minutes + ":" + seconds;
+    }
+
 
     // Chuyển String -> millis (từ ngày giờ do người dùng nhập)
     // Ví dụ: long time = parseDateTimeToMillis("01/01/2025 00:00", "dd/MM/yyyy HH:mm");
