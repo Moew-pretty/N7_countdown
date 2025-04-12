@@ -3,6 +3,8 @@ package com.example.n7_countdown.utils;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
+import com.example.n7_countdown.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,24 +17,29 @@ import java.util.Locale;
 public class TimeUtils {
 
     // Đếm ngược theo thời gian thực
-    public static CountDownTimer startCountdownTimer(long targetMillis, TextView textView) {
+    public static CountDownTimer startCountUpOrDownTimer(long targetMillis, TextView textView) {
         long currentMillis = System.currentTimeMillis();
-        long timeRemaining = targetMillis - currentMillis;
+        long diff = Math.abs(targetMillis - currentMillis);
 
-        if (timeRemaining <= 0) {
-            textView.setText("Sự kiện đã diễn ra.");
-            return null;
-        }
+        boolean isFuture = targetMillis > currentMillis;
 
-        CountDownTimer timer = new CountDownTimer(timeRemaining, 1000) {
+        CountDownTimer timer = new CountDownTimer(diff, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                textView.setText(formatDurationSmart(millisUntilFinished));
+                long now = System.currentTimeMillis();
+                long diff = Math.abs(now - targetMillis);
+
+                String prefix = isFuture ? "Còn " : "Qua ";
+                textView.setText(String.format("%s%s", prefix, formatDurationSmart(diff)));
             }
 
             @Override
             public void onFinish() {
-                textView.setText("Kết thúc!");
+                if (isFuture) {
+                    textView.setText(R.string.event_begin);
+                } else {
+                    textView.setText(R.string.event_end);
+                }
             }
         };
 
@@ -40,24 +47,30 @@ public class TimeUtils {
         return timer;
     }
 
+    // Đếm ngược theo thời gian thực (chỉ lấy giờ, phút, giây)
     public static CountDownTimer startCountdownTimerHMSOnly(long targetMillis, TextView textView) {
         long currentMillis = System.currentTimeMillis();
-        long timeRemaining = targetMillis - currentMillis;
+        long diff = Math.abs(targetMillis - currentMillis);
 
-        if (timeRemaining <= 0) {
-            textView.setText("Sự kiện đã diễn ra.");
-            return null;
-        }
+        boolean isFuture = targetMillis > currentMillis;
 
-        CountDownTimer timer = new CountDownTimer(timeRemaining, 1000) {
+        CountDownTimer timer = new CountDownTimer(diff, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                textView.setText(formatDurationHoursMinuteSecondOnly(millisUntilFinished));
+                long now = System.currentTimeMillis();
+                long diff = Math.abs(now - targetMillis);
+
+                //String prefix = isFuture ? "Còn " : "Qua ";
+                textView.setText(String.format("%s", formatDurationHoursMinuteSecondOnly(diff)));
             }
 
             @Override
             public void onFinish() {
-                textView.setText("Kết thúc!");
+                if (isFuture) {
+                    textView.setText(R.string.event_begin);
+                } else {
+                    textView.setText(R.string.event_end);
+                }
             }
         };
 
@@ -116,11 +129,11 @@ public class TimeUtils {
         if (days > 0) {
             return days + " ngày";
         } else if (hours > 0) {
-            return hours + " h";
+            return hours + " giờ";
         } else if (minutes > 0) {
-            return minutes + " m";
+            return minutes + " phút";
         } else {
-            return seconds + " s";
+            return seconds + " giây";
         }
     }
 
@@ -163,6 +176,16 @@ public class TimeUtils {
     // Check thời điểm là quá khứ hay tương lai
     public static boolean isFutureTime(long millis) {
         return millis > System.currentTimeMillis();
+    }
+
+    public static long countWeeks(long millis) {
+        millis = Math.max(0, millis);
+        return millis / (1000 * 60 * 60 * 24 * 7);
+    }
+
+    public static long countMonths(long millis) {
+        millis = Math.max(0, millis);
+        return millis / (1000L * 60 * 60 * 24 * 30);
     }
 
 }

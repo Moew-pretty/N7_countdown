@@ -15,7 +15,7 @@ import java.util.List;
 public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static final String TABLE_NAME = "time_events";
 
     public TimeEventDatabaseHelper(Context context) {
@@ -26,6 +26,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "userId INTEGER," +
                 "name TEXT," +
                 "timestampMillis INTEGER," +
                 "location TEXT," +
@@ -36,7 +37,8 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 "color INTEGER," +
                 "isCountUp INTEGER," +
                 "createdAt INTEGER," +
-                "imageUri TEXT" +
+                "imageUri TEXT," +
+                "FOREIGN KEY(userId) REFERENCES User(id)" +
                 ")";
         db.execSQL(CREATE_TABLE);
     }
@@ -44,13 +46,15 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("PRAGMA foreign_keys=ON");
         onCreate(db);
     }
 
-    public void insertEvent(TimeEvent event) {
+    public void insertEvent(TimeEvent event, int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        values.put("userId", userId);
         values.put("name", event.getName());
         values.put("timestampMillis", event.getTimestampMillis());
         values.put("location", event.getLocation());
@@ -67,10 +71,10 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<TimeEvent> getAllEvents() {
+    public List<TimeEvent> getAllEvents(int userId) {
         List<TimeEvent> eventList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where userId=" + userId, null);
 
         if (cursor.moveToFirst()) {
             do {

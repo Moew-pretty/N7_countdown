@@ -68,75 +68,83 @@
         android:layout_below="@id/eventInfoLayout"
         android:layout_marginTop="20dp" />
 
-    <!-- Đếm ngược -->
-    <LinearLayout
+    <HorizontalScrollView
         android:id="@+id/countdownLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/title"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:scrollbars="none"
+        android:layout_centerHorizontal="true">
+        <!-- Đếm ngược -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title"
+            android:layout_marginTop="30dp">
 
-        <TextView
-            android:id="@+id/days"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="78"
-            android:textSize="40sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="6dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/days_unit"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="12dp" />
+            <TextView
+                android:id="@+id/days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="78"
+                android:textSize="40sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days_unit"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="12dp" />
 
-        <TextView
-            android:id="@+id/hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="17"
-            android:textSize="40sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="6dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hours_unit"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="12dp" />
+            <TextView
+                android:id="@+id/hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17"
+                android:textSize="40sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hours_unit"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="12dp" />
 
-        <TextView
-            android:id="@+id/minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:textSize="40sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="6dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/minutes_unit"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="12sp" />
+            <TextView
+                android:id="@+id/minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="40sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minutes_unit"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="12sp" />
 
-        <TextView
-            android:id="@+id/seconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="33"
-            android:textSize="40sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginEnd="6dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/seconds_unit"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/seconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="33"
+                android:textSize="40sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seconds_unit"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="wrap_content"

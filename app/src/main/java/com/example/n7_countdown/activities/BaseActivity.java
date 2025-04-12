@@ -4,23 +4,36 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
+import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
+import com.example.n7_countdown.storage.UserDatabaseHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
 
 public abstract class BaseActivity extends AppCompatActivity {
-
+    private TimeEventDatabaseHelper timeDBHelper;
+    private UserDatabaseHelper userDBHelper;
+    public static SQLiteDatabase timeDebugDb;
+    public static SQLiteDatabase userDebugDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Tải ngôn ngữ đã lưu trước khi gọi super.onCreate
         loadLocale();
         super.onCreate(savedInstanceState);
+
+        // Mở db liên tục để debug
+        timeDBHelper = new TimeEventDatabaseHelper(this);
+        timeDebugDb = timeDBHelper.getWritableDatabase();
+
+        userDBHelper = new UserDatabaseHelper(this);
+        userDebugDb = userDBHelper.getWritableDatabase();
     }
 
     protected void setupBottomNavigation(int selectedItemId) {

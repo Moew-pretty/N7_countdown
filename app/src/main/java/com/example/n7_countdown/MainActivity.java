@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void loadEventCards() {
-        List<TimeEvent> events = dbHelper.getAllEvents();
+        List<TimeEvent> events = dbHelper.getAllEvents(1); // Thay bằng user id thật
         cardContainer.removeAllViews(); // clear old views
 
         for (TimeEvent event : events) {
@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
             eventName.setText(event.getName());
 
             // Bắt đầu đếm ngược
-            TimeUtils.startCountdownTimer(event.getTimestampMillis(), countdownDays);
+            TimeUtils.startCountUpOrDownTimer(event.getTimestampMillis(), countdownDays);
             TimeUtils.startCountdownTimerHMSOnly(event.getTimestampMillis(), countdownHours);
 
             cardView.setOnClickListener(v -> {

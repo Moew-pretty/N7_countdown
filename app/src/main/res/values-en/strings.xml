@@ -113,4 +113,9 @@
     <string name="language_vietnamese">Vietnamese</string>
     <string name="language_english">English</string>
     <string name="language_chinese">Chinese</string>
+
+    <string name="no_value">none</string>
+    <string name="event_begin">The time has come!</string>
+    <string name="event_end">Event passed!</string>
+
 </resources>

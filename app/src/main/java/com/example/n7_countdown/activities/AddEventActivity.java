@@ -30,7 +30,6 @@ public class AddEventActivity extends BaseActivity {
     private Button btnSave;
     private ImageView ivClose;
     private TimeEventDatabaseHelper dbHelper;
-    public static SQLiteDatabase debugDb;
     private long selectedMillis = 0;
 
     @Override
@@ -59,7 +58,6 @@ public class AddEventActivity extends BaseActivity {
         btnSave.setOnClickListener(v -> saveEvent());
 
         dbHelper = new TimeEventDatabaseHelper(this);
-        debugDb = dbHelper.getWritableDatabase();
 
     }
 
@@ -114,7 +112,7 @@ public class AddEventActivity extends BaseActivity {
         event.setImageUri(imageUri);
 
         // Lưu vào database
-        dbHelper.insertEvent(event);
+        dbHelper.insertEvent(event, 1); // Thay bằng user id thật
 
         // Trở về trang chủ
         Intent intent = new Intent(this, MainActivity.class);

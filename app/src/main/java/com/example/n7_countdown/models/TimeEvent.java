@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class TimeEvent {
     private int id;
+    private int userId;
     private String name;
     private LocalDateTime timestamp;       // Nhập và hiển thị dễ (cá nhân thấy là vậy :)))
     private long timestampMillis;         // Dạng milliseconds
@@ -21,33 +22,9 @@ public class TimeEvent {
 
     }
 
-    public TimeEvent(String name, LocalDateTime timestamp, long timestampMillis, String note, String location, boolean isReminder, long reminderTimeMillis, String subject, int color, boolean isCountUp, long createdAt) {
-        this.name = name;
-        this.timestamp = timestamp;
-        this.timestampMillis = timestampMillis;
-        this.note = note;
-        this.location = location;
-        this.isReminder = isReminder;
-        this.reminderTimeMillis = reminderTimeMillis;
-        this.subject = subject;
-        this.color = color;
-        this.isCountUp = isCountUp;
-        this.createdAt = createdAt;
-    }
-
-    public TimeEvent(int id, String name, LocalDateTime timestamp, long timestampMillis, String note, boolean isReminder, String subject, boolean isCountUp) {
+    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, long reminderTimeMillis, String subject, int color, boolean isCountUp, long createdAt, String imageUri) {
         this.id = id;
-        this.name = name;
-        this.timestamp = timestamp;
-        this.timestampMillis = timestampMillis;
-        this.note = note;
-        this.isReminder = isReminder;
-        this.subject = subject;
-        this.isCountUp = isCountUp;
-    }
-
-    public TimeEvent(int id, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, long reminderTimeMillis, String subject, int color, boolean isCountUp, long createdAt, String imageUri) {
-        this.id = id;
+        this.userId = userId;
         this.name = name;
         this.timestamp = timestamp;
         this.timestampMillis = timestampMillis;
@@ -68,6 +45,14 @@ public class TimeEvent {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {

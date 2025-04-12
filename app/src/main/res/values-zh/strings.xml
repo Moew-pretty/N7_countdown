@@ -114,4 +114,8 @@
     <string name="language_vietnamese">越南语</string>
     <string name="language_english">英语</string>
     <string name="language_chinese">中文</string>
+
+    <string name="no_value">无法使用</string>
+    <string name="event_begin">时机已到!</string>
+    <string name="event_end">事件已通过!</string>
 </resources>

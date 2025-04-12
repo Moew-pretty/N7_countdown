@@ -114,4 +114,8 @@
     <string name="language_english">Tiếng Anh</string>
     <string name="language_chinese">Tiếng Trung</string>
 
+    <string name="no_value">không có</string>
+    <string name="event_begin">Thời điểm đã đến!</string>
+    <string name="event_end">Sự kiện đã diễn ra!</string>
+
 </resources>
