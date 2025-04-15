@@ -26,6 +26,10 @@
     <string name="event_date_example">2025年3月29日 08:58</string>
     <string name="event_countdown_example">00:01:24</string>
     <string name="event_group_example">7N</string>
+    <string name="event_menu_edit">编辑</string>
+    <string name="event_menu_duplicate">复印</string>
+    <string name="event_menu_share">分享</string>
+    <string name="event_menu_delete">删除</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">设置</string>
@@ -91,6 +95,9 @@
         <item>提前1小时</item>
     </string-array>
 
+    <string name="remindBtn_show">隐藏选项</string>
+    <string name="remindBtn_hide">选择提醒时间</string>
+
 
     <!-- CountdownActivity -->
     <string name="countdown_title">从现在到最后一天还有</string>
@@ -118,4 +125,8 @@
     <string name="no_value">无法使用</string>
     <string name="event_begin">时机已到!</string>
     <string name="event_end">事件已通过!</string>
+
+    <string name="notify_event_begin_title">活动来了!</string>
+    <string name="notify_event_begin_content">活动时间到了：</string>
+
 </resources>

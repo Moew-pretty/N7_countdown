@@ -1,6 +1,8 @@
 package com.example.n7_countdown.models;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TimeEvent {
     private int id;
@@ -11,7 +13,7 @@ public class TimeEvent {
     private String location;
     private String note;
     private boolean isReminder;         // Có bật thông báo hay không
-    private long reminderTimeMillis;    // Thời điểm nhắc nhở (nếu có)
+    private Set<ReminderTimes> reminderTimes = new HashSet<>();    // Thời điểm nhắc nhở (nếu có)
     private String subject;             // Môn học / học phần
     private int color;
     private boolean isCountUp;          // true = Đếm ngược, false = Đếm thời gian đã qua
@@ -22,7 +24,7 @@ public class TimeEvent {
 
     }
 
-    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, long reminderTimeMillis, String subject, int color, boolean isCountUp, long createdAt, String imageUri) {
+    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, Set<ReminderTimes> reminderTimes, String subject, int color, boolean isCountUp, long createdAt, String imageUri) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -31,7 +33,7 @@ public class TimeEvent {
         this.location = location;
         this.note = note;
         this.isReminder = isReminder;
-        this.reminderTimeMillis = reminderTimeMillis;
+        this.reminderTimes = reminderTimes;
         this.subject = subject;
         this.color = color;
         this.isCountUp = isCountUp;
@@ -95,12 +97,12 @@ public class TimeEvent {
         this.location = location;
     }
 
-    public long getReminderTimeMillis() {
-        return reminderTimeMillis;
+    public Set<ReminderTimes> getReminderTimes() {
+        return reminderTimes;
     }
 
-    public void setReminderTimeMillis(long reminderTimeMillis) {
-        this.reminderTimeMillis = reminderTimeMillis;
+    public void setReminderTimes(Set<ReminderTimes> reminderTimes) {
+        this.reminderTimes = reminderTimes;
     }
 
     public String getSubject() {

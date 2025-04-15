@@ -3,29 +3,35 @@ package com.example.n7_countdown.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
-import com.example.n7_countdown.models.TimeEvent;
+import com.example.n7_countdown.dto.EventDTO;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
-import com.example.n7_countdown.utils.TimeUtils;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class AddEventActivity extends BaseActivity {
     private TextView tvDate, tvTime, tvCountdownValue;
     private Spinner spinnerRepeat, spinnerEventType, spinnerReminder;
+
+    private Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
     private EditText etNotes;
     private Button btnSave;
     private ImageView ivClose;
@@ -45,6 +51,7 @@ public class AddEventActivity extends BaseActivity {
         spinnerRepeat = findViewById(R.id.spinnerRepeat);
         spinnerEventType = findViewById(R.id.spinnerEventType);
         spinnerReminder = findViewById(R.id.spinnerReminder);
+        setupReminderOptions();
         etNotes = findViewById(R.id.etNotes);
         btnSave = findViewById(R.id.btnSave);
         ivClose = findViewById(R.id.ivClose);
@@ -52,6 +59,19 @@ public class AddEventActivity extends BaseActivity {
         // Bấm vào chọn ngày hoặc giờ → mở DateTime picker
         tvDate.setOnClickListener(v -> openDateTimePicker());
         tvTime.setOnClickListener(v -> openDateTimePicker());
+
+        Button btnShowReminder = findViewById(R.id.btnShowReminderOptions);
+        LinearLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
+
+        btnShowReminder.setOnClickListener(v -> {
+            if (reminderContainer.getVisibility() == View.GONE) {
+                reminderContainer.setVisibility(View.VISIBLE);
+                btnShowReminder.setText(R.string.remindBtn_show);
+            } else {
+                reminderContainer.setVisibility(View.GONE);
+                btnShowReminder.setText(R.string.remindBtn_hide);
+            }
+        });
 
         ivClose.setOnClickListener(v -> finish());
 
@@ -86,28 +106,28 @@ public class AddEventActivity extends BaseActivity {
         String eventType = spinnerEventType.getSelectedItem().toString();
         String reminderStr = spinnerReminder.getSelectedItem().toString();
         boolean isReminder = !reminderStr.equals("No");
-        long reminderTimeMillis = selectedMillis - 15 * 60 * 1000; // Ví dụ: nhắc 15 phút trước
         String subject = eventType;
-        boolean isCountUp = false;
-        long createdAt = System.currentTimeMillis();
-        int color = Color.BLUE; // hoặc random màu
+        int color = Color.BLUE;
         String imageUri = "";
+
+        Set<Long> selectedReminderTimes = new HashSet<>();
+        for (Map.Entry<CheckBox, Long> entry : reminderOptionMap.entrySet()) {
+            if (entry.getKey().isChecked()) {
+                selectedReminderTimes.add(entry.getValue());
+            }
+        }
 
         if (selectedMillis == 0) {
             Toast.makeText(this, R.string.error_no_datetime, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        TimeEvent event = new TimeEvent();
+        EventDTO event = new EventDTO();
         event.setTimestampMillis(selectedMillis);
-        event.setTimestamp(TimeUtils.millisToLocalDateTime(selectedMillis));
         event.setName(subject);
         event.setNote(note);
-        event.setReminderTimeMillis(reminderTimeMillis);
+        event.setReminderTimeMillis(selectedReminderTimes);
         event.setReminder(isReminder);
-        event.setSubject(subject);
-        event.setCreatedAt(createdAt);
-        event.setCountUp(isCountUp);
         event.setColor(color);
         event.setImageUri(imageUri);
 
@@ -120,6 +140,35 @@ public class AddEventActivity extends BaseActivity {
         intent.putExtra("eventTime", event.getTimestampMillis());
         startActivity(intent);
         finish();
+    }
+
+    private void setupReminderOptions() {
+        LinearLayout container = findViewById(R.id.reminderOptionsContainer);
+
+        // Định nghĩa các lựa chọn nhắc nhở
+        LinkedHashMap<String, Long> options = new LinkedHashMap<>();
+        options.put("1 phút", 60 * 1000L);
+        options.put("5 phút", 5 * 60 * 1000L);
+        options.put("15 phút", 15 * 60 * 1000L);
+        options.put("30 phút", 30 * 60 * 1000L);
+        options.put("1 tiếng", 60 * 60 * 1000L);
+        options.put("2 tiếng", 2 * 60 * 60 * 1000L);
+        options.put("3 tiếng", 3 * 60 * 60 * 1000L);
+        options.put("6 tiếng", 6 * 60 * 60 * 1000L);
+        options.put("12 tiếng", 12 * 60 * 60 * 1000L);
+        options.put("1 ngày", 24 * 60 * 60 * 1000L);
+        options.put("2 ngày", 2 * 24 * 60 * 60 * 1000L);
+        options.put("3 ngày", 3 * 24 * 60 * 60 * 1000L);
+        options.put("1 tuần", 7 * 24 * 60 * 60 * 1000L);
+        options.put("2 tuần", 14 * 24 * 60 * 60 * 1000L);
+        options.put("1 tháng", 30L * 24 * 60 * 60 * 1000L);
+
+        for (Map.Entry<String, Long> entry : options.entrySet()) {
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(entry.getKey());
+            container.addView(checkBox);
+            reminderOptionMap.put(checkBox, entry.getValue());
+        }
     }
 
 }

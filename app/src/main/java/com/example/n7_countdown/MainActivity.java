@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.n7_countdown.activities.AddEventActivity;
 import com.example.n7_countdown.activities.BaseActivity;
 import com.example.n7_countdown.activities.CountdownActivity;
+import com.example.n7_countdown.activities.EditEventActivity;
 import com.example.n7_countdown.activities.LoginActivity;
-import com.example.n7_countdown.activities.SettingsActivity;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 import com.example.n7_countdown.utils.TimeUtils;
@@ -75,6 +77,39 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra("eventId", event.getId());
                 startActivity(intent);
             });
+
+            ImageButton menuBtn = cardView.findViewById(R.id.eventMenuBtn);
+
+            menuBtn.setOnClickListener(v -> {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_event_options, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.action_duplicate) {
+                        // Xử lý nhân bản sự kiện
+                        Toast.makeText(MainActivity.this, "Đã chọn: Tạo bản sao", Toast.LENGTH_SHORT).show();
+                        return true;
+                    } else if (itemId == R.id.action_share) {
+                        // Xử lý chia sẻ sự kiện
+                        Toast.makeText(MainActivity.this, "Đã chọn: Chia sẻ", Toast.LENGTH_SHORT).show();
+                        return true;
+                    } else if (itemId == R.id.action_delete) {
+                        dbHelper.deleteEvent(event.getId());
+                        Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();
+                        return true;
+                    } else if (itemId == R.id.action_edit) {
+                        Intent intent = new Intent(MainActivity.this, EditEventActivity.class);
+                        intent.putExtra("eventId", event.getId());
+                        startActivity(intent);
+                        return false;
+                    }
+                    return true;
+                });
+
+                popupMenu.show();
+            });
+
 
 
             cardContainer.addView(cardView);

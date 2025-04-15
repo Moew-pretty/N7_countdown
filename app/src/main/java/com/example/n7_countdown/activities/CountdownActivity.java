@@ -42,7 +42,7 @@ public class CountdownActivity extends AppCompatActivity {
             return;
         }
 
-        TimeEvent event = dbHelper.getEvent(eventId);
+        TimeEvent event = dbHelper.getEventById(eventId);
 
         // Hiển thị dữ liệu
         if(event.getName() != null) {

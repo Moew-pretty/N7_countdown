@@ -26,6 +26,10 @@
     <string name="event_date_example">29/03/2025 08:58</string>
     <string name="event_countdown_example">00:01:24</string>
     <string name="event_group_example">7N</string>
+    <string name="event_menu_edit">Chỉnh sửa</string>
+    <string name="event_menu_duplicate">Tạo bản sao</string>
+    <string name="event_menu_share">Chia sẻ</string>
+    <string name="event_menu_delete">Xoá</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Cài đặt</string>
@@ -91,6 +95,9 @@
         <item>1 giờ trước</item>
     </string-array>
 
+    <string name="remindBtn_show">Ẩn các lựa chọn</string>
+    <string name="remindBtn_hide">Chọn thời gian nhắc</string>
+
     <!-- CountdownActivity -->
     <string name="countdown_title">ĐẾM NGƯỢC</string>
     <string name="event_name_prefix">Sự kiện: </string>
@@ -117,5 +124,8 @@
     <string name="no_value">không có</string>
     <string name="event_begin">Thời điểm đã đến!</string>
     <string name="event_end">Sự kiện đã diễn ra!</string>
+
+    <string name="notify_event_begin_title">Sự kiện đã đến!</string>
+    <string name="notify_event_begin_content">Thời điểm đã đến cho sự kiện: </string>
 
 </resources>
