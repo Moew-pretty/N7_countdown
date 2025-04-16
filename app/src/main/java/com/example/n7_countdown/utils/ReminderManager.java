@@ -38,7 +38,7 @@ public class ReminderManager {
         }
 
         // Lịch chính
-        scheduleOne(context, alarmManager, event.getId(), event.getName(), event.getTimestampMillis(), "");
+        scheduleOne(context, alarmManager, event.getId(), event.getId(), event.getName(), event.getTimestampMillis(), "");
 
         // Lịch nhắc nhở
         dbHelper = new TimeEventDatabaseHelper(context);
@@ -52,17 +52,19 @@ public class ReminderManager {
             Log.d("time: ", String.valueOf(time));
             if (time > System.currentTimeMillis()) {
                 int requestCode = event.getId() * 1000 + index; // Mỗi reminder khác nhau
-                scheduleOne(context, alarmManager, requestCode, event.getName(), time, reminderTime.getLabel());
+                scheduleOne(context, alarmManager, requestCode, event.getId(), event.getName(), time, reminderTime.getLabel());
                 index++;
             }
         }
     }
 
-    private static void scheduleOne(Context context, AlarmManager alarmManager, int requestCode, String eventName, long timeMillis, String label) {
+    private static void scheduleOne(Context context, AlarmManager alarmManager, int requestCode, int eventId, String eventName, long timeMillis, String label) {
         Intent intent = new Intent(context, EventNotificationReceiver.class);
+        intent.putExtra("eventId", eventId);
         intent.putExtra("eventName", eventName);
+
         if(Objects.equals(label, "")) {
-            intent.putExtra("customMessage", context.getString(R.string.event_name_prefix) + " " + eventName + " " + context.getString(R.string.event_name_prefix));
+            intent.putExtra("customMessage", context.getString(R.string.event_name_prefix) + " " + eventName + " " + context.getString(R.string.is_coming));
         } else {
             intent.putExtra("customMessage", context.getString(R.string.event_name_prefix) + " " + eventName + " " + context.getString(R.string.will_begin_in) + " " + label + "!");
         }

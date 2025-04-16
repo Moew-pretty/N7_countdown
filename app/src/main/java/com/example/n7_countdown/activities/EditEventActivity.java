@@ -75,7 +75,7 @@ public class EditEventActivity extends BaseActivity {
             txtSelectedDateTime.setText(TimeUtils.formatDateTimeShort(
                     TimeUtils.millisToLocalDateTime(selectedTimestampMillis)));
 
-            for (ReminderTimes reminder : event.getReminderTimes()) {
+            for (ReminderTimes reminder : dbHelper.getReminderTimesByEventId(eventId)) {
                 for (Map.Entry<CheckBox, Long> entry : reminderOptionMap.entrySet()) {
                     if (entry.getValue().equals(reminder.getTimeMillis())) {
                         entry.getKey().setChecked(true);

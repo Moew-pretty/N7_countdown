@@ -3,6 +3,8 @@ package com.example.n7_countdown;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -22,10 +24,13 @@ import com.example.n7_countdown.utils.TimeUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends BaseActivity {
     private LinearLayout cardContainer;
     private TimeEventDatabaseHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,68 +57,70 @@ public class MainActivity extends BaseActivity {
     }
 
     private void loadEventCards() {
-        List<TimeEvent> events = dbHelper.getAllEvents(1); // Thay bằng user id thật
-        cardContainer.removeAllViews(); // clear old views
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        for (TimeEvent event : events) {
-            View cardView = LayoutInflater.from(this).inflate(R.layout.item_event_card, cardContainer, false);
+        executor.execute(() -> {
+            List<TimeEvent> events = dbHelper.getAllEvents(1);
 
-            TextView eventTime = cardView.findViewById(R.id.eventTime);
-            EditText eventName = cardView.findViewById(R.id.eventName);
-            TextView countdownDays = cardView.findViewById(R.id.countdownText_general);
-            TextView countdownHours = cardView.findViewById(R.id.countdownText_hours);
+            handler.post(() -> {
+                cardContainer.removeAllViews();
 
-            // Gán dữ liệu vào các view
-            LocalDateTime dateTime = TimeUtils.millisToLocalDateTime(event.getTimestampMillis());
-            eventTime.setText(TimeUtils.formatDateTimeShort(dateTime));
-            eventName.setText(event.getName());
+                for (TimeEvent event : events) {
+                    View cardView = LayoutInflater.from(this).inflate(R.layout.item_event_card, cardContainer, false);
 
-            // Bắt đầu đếm ngược
-            TimeUtils.startCountUpOrDownTimer(this, event.getTimestampMillis(), countdownDays);
-            TimeUtils.startCountdownTimerHMSOnly(event.getTimestampMillis(), countdownHours);
+                    TextView eventTime = cardView.findViewById(R.id.eventTime);
+                    EditText eventName = cardView.findViewById(R.id.eventName);
+                    TextView countdownDays = cardView.findViewById(R.id.countdownText_general);
+                    TextView countdownHours = cardView.findViewById(R.id.countdownText_hours);
 
-            cardView.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
-                intent.putExtra("eventId", event.getId());
-                startActivity(intent);
-            });
+                    LocalDateTime dateTime = TimeUtils.millisToLocalDateTime(event.getTimestampMillis());
+                    eventTime.setText(TimeUtils.formatDateTimeShort(dateTime));
+                    eventName.setText(event.getName());
 
-            ImageButton menuBtn = cardView.findViewById(R.id.eventMenuBtn);
+                    TimeUtils.startCountUpOrDownTimer(this, event.getTimestampMillis(), countdownDays);
+                    TimeUtils.startCountdownTimerHMSOnly(event.getTimestampMillis(), countdownHours);
 
-            menuBtn.setOnClickListener(v -> {
-                PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_event_options, popupMenu.getMenu());
-
-                popupMenu.setOnMenuItemClickListener(item -> {
-                    int itemId = item.getItemId();
-                    if (itemId == R.id.action_duplicate) {
-                        // Xử lý nhân bản sự kiện
-                        Toast.makeText(MainActivity.this, "Đã chọn: Tạo bản sao", Toast.LENGTH_SHORT).show();
-                        return true;
-                    } else if (itemId == R.id.action_share) {
-                        // Xử lý chia sẻ sự kiện
-                        Toast.makeText(MainActivity.this, "Đã chọn: Chia sẻ", Toast.LENGTH_SHORT).show();
-                        return true;
-                    } else if (itemId == R.id.action_delete) {
-                        dbHelper.deleteEvent(event.getId());
-                        cardContainer.removeView(cardView);
-                        Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();
-                        return true;
-                    } else if (itemId == R.id.action_edit) {
-                        Intent intent = new Intent(MainActivity.this, EditEventActivity.class);
+                    cardView.setOnClickListener(v -> {
+                        Intent intent = new Intent(MainActivity.this, CountdownActivity.class);
                         intent.putExtra("eventId", event.getId());
                         startActivity(intent);
-                        return false;
-                    }
-                    return true;
-                });
+                    });
 
-                popupMenu.show();
+                    ImageButton menuBtn = cardView.findViewById(R.id.eventMenuBtn);
+                    menuBtn.setOnClickListener(v -> {
+                        PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
+                        popupMenu.getMenuInflater().inflate(R.menu.menu_event_options, popupMenu.getMenu());
+
+                        popupMenu.setOnMenuItemClickListener(item -> {
+                            int itemId = item.getItemId();
+                            if (itemId == R.id.action_duplicate) {
+                                Toast.makeText(MainActivity.this, "Đã chọn: Tạo bản sao", Toast.LENGTH_SHORT).show();
+                                return true;
+                            } else if (itemId == R.id.action_share) {
+                                Toast.makeText(MainActivity.this, "Đã chọn: Chia sẻ", Toast.LENGTH_SHORT).show();
+                                return true;
+                            } else if (itemId == R.id.action_delete) {
+                                dbHelper.deleteEvent(event.getId());
+                                cardContainer.removeView(cardView);
+                                Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();
+                                return true;
+                            } else if (itemId == R.id.action_edit) {
+                                Intent intent = new Intent(MainActivity.this, EditEventActivity.class);
+                                intent.putExtra("eventId", event.getId());
+                                startActivity(intent);
+                                return false;
+                            }
+                            return true;
+                        });
+
+                        popupMenu.show();
+                    });
+
+                    cardContainer.addView(cardView);
+                }
             });
-
-
-
-            cardContainer.addView(cardView);
-        }
+        });
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.n7_countdown.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
@@ -66,7 +68,7 @@ public class CountdownActivity extends AppCompatActivity {
 
         LinearLayout backButton = findViewById(R.id.backButtonLayout);
         backButton.setOnClickListener(v -> {
-            finish();
+            startActivity(new Intent(this, MainActivity.class));
         });
 
     }
