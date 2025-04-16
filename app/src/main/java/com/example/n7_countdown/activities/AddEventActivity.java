@@ -18,7 +18,10 @@ import android.widget.Toast;
 import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
 import com.example.n7_countdown.dto.EventDTO;
+import com.example.n7_countdown.models.ReminderTimes;
+import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
+import com.example.n7_countdown.utils.ReminderManager;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -105,17 +108,21 @@ public class AddEventActivity extends BaseActivity {
         String note = etNotes.getText().toString().trim();
         String eventType = spinnerEventType.getSelectedItem().toString();
         String reminderStr = spinnerReminder.getSelectedItem().toString();
-        boolean isReminder = !reminderStr.equals("No");
-        String subject = eventType;
         int color = Color.BLUE;
         String imageUri = "";
 
-        Set<Long> selectedReminderTimes = new HashSet<>();
+        Set<ReminderTimes> selectedReminders = new HashSet<>();
         for (Map.Entry<CheckBox, Long> entry : reminderOptionMap.entrySet()) {
-            if (entry.getKey().isChecked()) {
-                selectedReminderTimes.add(entry.getValue());
+            CheckBox checkBox = entry.getKey();
+            if (checkBox.isChecked()) {
+                String label = checkBox.getText().toString();
+                long millisBeforeEvent = entry.getValue();
+
+                selectedReminders.add(new ReminderTimes(millisBeforeEvent, label));
             }
         }
+
+        boolean isReminder = !selectedReminders.isEmpty();
 
         if (selectedMillis == 0) {
             Toast.makeText(this, R.string.error_no_datetime, Toast.LENGTH_SHORT).show();
@@ -124,15 +131,16 @@ public class AddEventActivity extends BaseActivity {
 
         EventDTO event = new EventDTO();
         event.setTimestampMillis(selectedMillis);
-        event.setName(subject);
+        event.setName(eventType);
         event.setNote(note);
-        event.setReminderTimeMillis(selectedReminderTimes);
+        event.setReminderTimes(selectedReminders);
         event.setReminder(isReminder);
         event.setColor(color);
         event.setImageUri(imageUri);
 
         // Lưu vào database
-        dbHelper.insertEvent(event, 1); // Thay bằng user id thật
+        TimeEvent savedEvent = dbHelper.insertEvent(event, 1); // Thay bằng user id thật
+        ReminderManager.scheduleAllReminders(this, savedEvent);
 
         // Trở về trang chủ
         Intent intent = new Intent(this, MainActivity.class);
@@ -147,21 +155,21 @@ public class AddEventActivity extends BaseActivity {
 
         // Định nghĩa các lựa chọn nhắc nhở
         LinkedHashMap<String, Long> options = new LinkedHashMap<>();
-        options.put("1 phút", 60 * 1000L);
-        options.put("5 phút", 5 * 60 * 1000L);
-        options.put("15 phút", 15 * 60 * 1000L);
-        options.put("30 phút", 30 * 60 * 1000L);
-        options.put("1 tiếng", 60 * 60 * 1000L);
-        options.put("2 tiếng", 2 * 60 * 60 * 1000L);
-        options.put("3 tiếng", 3 * 60 * 60 * 1000L);
-        options.put("6 tiếng", 6 * 60 * 60 * 1000L);
-        options.put("12 tiếng", 12 * 60 * 60 * 1000L);
-        options.put("1 ngày", 24 * 60 * 60 * 1000L);
-        options.put("2 ngày", 2 * 24 * 60 * 60 * 1000L);
-        options.put("3 ngày", 3 * 24 * 60 * 60 * 1000L);
-        options.put("1 tuần", 7 * 24 * 60 * 60 * 1000L);
-        options.put("2 tuần", 14 * 24 * 60 * 60 * 1000L);
-        options.put("1 tháng", 30L * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.minutes_unit_downcase), 60 * 1000L);
+        options.put("5 " + getString(R.string.minutes_unit_downcase), 5 * 60 * 1000L);
+        options.put("15 " + getString(R.string.minutes_unit_downcase), 15 * 60 * 1000L);
+        options.put("30 " + getString(R.string.minutes_unit_downcase), 30 * 60 * 1000L);
+        options.put("1 " + getString(R.string.hours_unit_downcase), 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.hours_unit_downcase), 2 * 60 * 60 * 1000L);
+        options.put("3 " + getString(R.string.hours_unit_downcase), 3 * 60 * 60 * 1000L);
+        options.put("6 " + getString(R.string.hours_unit_downcase), 6 * 60 * 60 * 1000L);
+        options.put("12 " + getString(R.string.hours_unit_downcase), 12 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.days_unit_downcase), 24 * 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.days_unit_downcase), 2 * 24 * 60 * 60 * 1000L);
+        options.put("3 " + getString(R.string.days_unit_downcase), 3 * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.weeks_unit_downcase), 7 * 24 * 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.weeks_unit_downcase), 14 * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.months_unit_downcase), 30L * 24 * 60 * 60 * 1000L);
 
         for (Map.Entry<String, Long> entry : options.entrySet()) {
             CheckBox checkBox = new CheckBox(this);

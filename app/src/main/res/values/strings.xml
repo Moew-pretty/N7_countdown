@@ -26,6 +26,10 @@
     <string name="event_date_example">29/03/2025 08:58</string>
     <string name="event_countdown_example">00:01:24</string>
     <string name="event_group_example">7N</string>
+
+    <string name="event_time_remain">Còn </string>
+    <string name="event_time_passed">Qua </string>
+
     <string name="event_menu_edit">Chỉnh sửa</string>
     <string name="event_menu_duplicate">Tạo bản sao</string>
     <string name="event_menu_share">Chia sẻ</string>
@@ -100,6 +104,7 @@
 
     <!-- CountdownActivity -->
     <string name="countdown_title">ĐẾM NGƯỢC</string>
+    <string name="countup_title">ĐÃ TRÔI QUA</string>
     <string name="event_name_prefix">Sự kiện: </string>
     <string name="event_location_prefix">Địa điểm: </string>
     <string name="event_note_prefix">Ghi chú: </string>
@@ -107,6 +112,12 @@
     <string name="hours_unit">GIỜ</string>
     <string name="minutes_unit">PHÚT</string>
     <string name="seconds_unit">GIÂY</string>
+    <string name="months_unit_downcase"> tháng</string>
+    <string name="weeks_unit_downcase"> tuần</string>
+    <string name="days_unit_downcase"> ngày</string>
+    <string name="hours_unit_downcase"> giờ</string>
+    <string name="minutes_unit_downcase"> phút</string>
+    <string name="seconds_unit_downcase"> giây</string>
     <string name="change_background">Thay ảnh nền</string>
     <string name="back_button">QUAY LẠI</string>
 
@@ -118,14 +129,19 @@
     <!-- Language selection -->
     <string name="select_language">Chọn ngôn ngữ</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_english">Tiếng Anh</string>
-    <string name="language_chinese">Tiếng Trung</string>
+    <string name="language_english">English</string>
+    <string name="language_chinese">中文</string>
 
+    <!-- others-->
     <string name="no_value">không có</string>
     <string name="event_begin">Thời điểm đã đến!</string>
     <string name="event_end">Sự kiện đã diễn ra!</string>
 
     <string name="notify_event_begin_title">Sự kiện đã đến!</string>
     <string name="notify_event_begin_content">Thời điểm đã đến cho sự kiện: </string>
+
+    <string name="is_coming">đang đến!</string>
+    <string name="will_begin_in">diễn ra trong</string>
+
 
 </resources>

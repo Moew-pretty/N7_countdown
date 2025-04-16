@@ -26,6 +26,10 @@
     <string name="event_date_example">03/29/2025 08:58</string>
     <string name="event_countdown_example">00:01:24</string>
     <string name="event_group_example">7N</string>
+
+    <string name="event_time_remain"> remain</string>
+    <string name="event_time_passed"> passed</string>
+
     <string name="event_menu_edit">Edit</string>
     <string name="event_menu_duplicate">Duplicate event</string>
     <string name="event_menu_share">Share</string>
@@ -100,6 +104,7 @@
 
     <!-- CountdownActivity -->
     <string name="countdown_title">FROM NOW UNTIL THE END</string>
+    <string name="countup_title">IT HAS BEEN</string>
     <string name="event_name_prefix">Event: </string>
     <string name="event_location_prefix">Location: </string>
     <string name="event_note_prefix">Note: </string>
@@ -107,6 +112,12 @@
     <string name="hours_unit">HOURS</string>
     <string name="minutes_unit">MINUTES</string>
     <string name="seconds_unit">SECONDS</string>
+    <string name="months_unit_downcase"> months</string>
+    <string name="weeks_unit_downcase"> weeks</string>
+    <string name="days_unit_downcase"> days</string>
+    <string name="hours_unit_downcase"> hours</string>
+    <string name="minutes_unit_downcase"> minutes</string>
+    <string name="seconds_unit_downcase"> seconds</string>
     <string name="change_background">Change Background</string>
     <string name="back_button">BACK</string>
 
@@ -117,9 +128,9 @@
 
     <!-- Language selection -->
     <string name="select_language">Select Language</string>
-    <string name="language_vietnamese">Vietnamese</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_english">English</string>
-    <string name="language_chinese">Chinese</string>
+    <string name="language_chinese">中文</string>
 
     <string name="no_value">none</string>
     <string name="event_begin">The time has come!</string>
@@ -127,5 +138,8 @@
 
     <string name="notify_event_begin_title">Event begin!</string>
     <string name="notify_event_begin_content">The time has come for: </string>
+
+    <string name="is_coming">is coming!</string>
+    <string name="will_begin_in">will begin in</string>
 
 </resources>

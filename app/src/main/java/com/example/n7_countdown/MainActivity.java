@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
             eventName.setText(event.getName());
 
             // Bắt đầu đếm ngược
-            TimeUtils.startCountUpOrDownTimer(event.getTimestampMillis(), countdownDays);
+            TimeUtils.startCountUpOrDownTimer(this, event.getTimestampMillis(), countdownDays);
             TimeUtils.startCountdownTimerHMSOnly(event.getTimestampMillis(), countdownHours);
 
             cardView.setOnClickListener(v -> {
@@ -96,6 +96,7 @@ public class MainActivity extends BaseActivity {
                         return true;
                     } else if (itemId == R.id.action_delete) {
                         dbHelper.deleteEvent(event.getId());
+                        cardContainer.removeView(cardView);
                         Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();
                         return true;
                     } else if (itemId == R.id.action_edit) {

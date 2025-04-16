@@ -74,9 +74,11 @@ public class CountdownActivity extends AppCompatActivity {
     private void startCountdown(long targetMillis) {
         long currentMillis = System.currentTimeMillis();
         long remaining = targetMillis - currentMillis;
+        TextView title = findViewById(R.id.title);
 
         // Nếu sự kiện ở tương lai => đếm ngược bình thường
         if (remaining > 0) {
+            title.setText(getString(R.string.countdown_title));
             timer = new CountDownTimer(remaining, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -102,6 +104,7 @@ public class CountdownActivity extends AppCompatActivity {
             }.start();
         } else {
             // Sự kiện đã xảy ra trong quá khứ => đếm xuôi (tăng thời gian đã trôi qua)
+            title.setText(getString(R.string.countup_title));
             long passedMillis = -remaining;
             timer = new CountDownTimer(Long.MAX_VALUE, 1000) {
                 long offset = passedMillis;

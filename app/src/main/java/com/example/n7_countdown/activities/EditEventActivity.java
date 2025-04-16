@@ -15,6 +15,7 @@ import com.example.n7_countdown.R;
 import com.example.n7_countdown.models.ReminderTimes;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
+import com.example.n7_countdown.utils.ReminderManager;
 import com.example.n7_countdown.utils.TimeUtils;
 
 import java.util.Calendar;
@@ -31,7 +32,7 @@ public class EditEventActivity extends BaseActivity {
     private Button btnPickDateTime, btnSave, btnCancel;
     private long selectedTimestampMillis = -1;
     private int eventId;
-    private Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
+    private final Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
     private TimeEventDatabaseHelper dbHelper;
 
     @Override
@@ -97,15 +98,22 @@ public class EditEventActivity extends BaseActivity {
             updated.setLocation(editLocation.getText().toString());
             updated.setTimestampMillis(selectedTimestampMillis);
 
-            Set<Long> selectedReminderTimes = new HashSet<>();
+            Set<ReminderTimes> selectedReminders = new HashSet<>();
             for (Map.Entry<CheckBox, Long> entry : reminderOptionMap.entrySet()) {
-                if (entry.getKey().isChecked()) {
-                    selectedReminderTimes.add(entry.getValue());
+                CheckBox checkBox = entry.getKey();
+                if (checkBox.isChecked()) {
+                    String label = checkBox.getText().toString();
+                    long millisBeforeEvent = entry.getValue();
+
+                    selectedReminders.add(new ReminderTimes(millisBeforeEvent, label));
                 }
             }
 
-            dbHelper.insertReminderTimes(eventId, selectedReminderTimes);
-            dbHelper.updateEvent(updated);
+            dbHelper.updateReminderTimes(eventId, selectedReminders);
+            TimeEvent updatedEvent = dbHelper.updateEvent(updated);
+
+            ReminderManager.scheduleAllReminders(this, updatedEvent);
+
             Toast.makeText(this, "Đã lưu thay đổi", Toast.LENGTH_SHORT).show();
             finish();
         });
@@ -128,21 +136,21 @@ public class EditEventActivity extends BaseActivity {
 
         // Định nghĩa các lựa chọn nhắc nhở
         LinkedHashMap<String, Long> options = new LinkedHashMap<>();
-        options.put("1 phút", 60 * 1000L);
-        options.put("5 phút", 5 * 60 * 1000L);
-        options.put("15 phút", 15 * 60 * 1000L);
-        options.put("30 phút", 30 * 60 * 1000L);
-        options.put("1 tiếng", 60 * 60 * 1000L);
-        options.put("2 tiếng", 2 * 60 * 60 * 1000L);
-        options.put("3 tiếng", 3 * 60 * 60 * 1000L);
-        options.put("6 tiếng", 6 * 60 * 60 * 1000L);
-        options.put("12 tiếng", 12 * 60 * 60 * 1000L);
-        options.put("1 ngày", 24 * 60 * 60 * 1000L);
-        options.put("2 ngày", 2 * 24 * 60 * 60 * 1000L);
-        options.put("3 ngày", 3 * 24 * 60 * 60 * 1000L);
-        options.put("1 tuần", 7 * 24 * 60 * 60 * 1000L);
-        options.put("2 tuần", 14 * 24 * 60 * 60 * 1000L);
-        options.put("1 tháng", 30L * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.minutes_unit_downcase), 60 * 1000L);
+        options.put("5 " + getString(R.string.minutes_unit_downcase), 5 * 60 * 1000L);
+        options.put("15 " + getString(R.string.minutes_unit_downcase), 15 * 60 * 1000L);
+        options.put("30 " + getString(R.string.minutes_unit_downcase), 30 * 60 * 1000L);
+        options.put("1 " + getString(R.string.hours_unit_downcase), 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.hours_unit_downcase), 2 * 60 * 60 * 1000L);
+        options.put("3 " + getString(R.string.hours_unit_downcase), 3 * 60 * 60 * 1000L);
+        options.put("6 " + getString(R.string.hours_unit_downcase), 6 * 60 * 60 * 1000L);
+        options.put("12 " + getString(R.string.hours_unit_downcase), 12 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.days_unit_downcase), 24 * 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.days_unit_downcase), 2 * 24 * 60 * 60 * 1000L);
+        options.put("3 " + getString(R.string.days_unit_downcase), 3 * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.weeks_unit_downcase), 7 * 24 * 60 * 60 * 1000L);
+        options.put("2 " + getString(R.string.weeks_unit_downcase), 14 * 24 * 60 * 60 * 1000L);
+        options.put("1 " + getString(R.string.months_unit_downcase), 30L * 24 * 60 * 60 * 1000L);
 
         for (Map.Entry<String, Long> entry : options.entrySet()) {
             CheckBox checkBox = new CheckBox(this);

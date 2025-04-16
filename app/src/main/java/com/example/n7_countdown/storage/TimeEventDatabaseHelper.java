@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.n7_countdown.dto.EventDTO;
+import com.example.n7_countdown.models.ReminderTimes;
 import com.example.n7_countdown.models.TimeEvent;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Set;
 public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
     public static final String TABLE_NAME = "time_events";
 
     public TimeEventDatabaseHelper(Context context) {
@@ -35,7 +36,6 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 "location TEXT," +
                 "note TEXT," +
                 "isReminder INTEGER," +
-                "reminderTimeMillis INTEGER," +
                 "subject TEXT," +
                 "color INTEGER," +
                 "isCountUp INTEGER," +
@@ -49,6 +49,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "eventId INTEGER," +
                 "timeMillis INTEGER," +
+                "label TEXT," +
                 "FOREIGN KEY(eventId) REFERENCES time_events(id) ON DELETE CASCADE" +
                 ")";
         db.execSQL(CREATE_REMINDER_TABLE);
@@ -63,7 +64,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertEvent(EventDTO event, int userId) {
+    public TimeEvent insertEvent(EventDTO event, int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -79,9 +80,10 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         values.put("imageUri", event.getImageUri());
 
         long eventId = db.insert(TABLE_NAME, null, values);
-        insertReminderTimes((int) eventId, event.getReminderTimeMillis());
+        insertReminderTimes((int) eventId, event.getReminderTimes());
 
         db.close();
+        return getEventById((int) eventId);
     }
 
     public List<TimeEvent> getAllEvents(int userId) {
@@ -137,10 +139,11 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
     public void deleteEvent(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE id = ?", new Object[]{id});
+        deleteReminderTimesByEventId(id);
         db.close();
     }
 
-    public void updateEvent(TimeEvent event) {
+    public TimeEvent updateEvent(TimeEvent event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -179,28 +182,36 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         }
 
         db.close();
+        return getEventById(event.getId());
     }
 
 
 
 
     // Event Remind Times CRUD
-    public void insertReminderTimes(int eventId, Set<Long> times) {
+    public void insertReminderTimes(int eventId, Set<ReminderTimes> reminders) {
         SQLiteDatabase db = this.getWritableDatabase();
-        for (Long time : times) {
+        for (ReminderTimes reminder : reminders) {
             ContentValues values = new ContentValues();
             values.put("eventId", eventId);
-            values.put("timeMillis", time);
+            values.put("timeMillis", reminder.getTimeMillis());
+            values.put("label", reminder.getLabel());
             db.insert("reminder_times", null, values);
         }
     }
 
-    public Set<Long> getReminderTimesByEventId(int eventId) {
-        Set<Long> times = new HashSet<>();
+    public Set<ReminderTimes> getReminderTimesByEventId(int eventId) {
+        Set<ReminderTimes> times = new HashSet<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT timeMillis FROM reminder_times WHERE eventId = ?", new String[]{String.valueOf(eventId)});
+        Cursor cursor = db.rawQuery("SELECT * FROM reminder_times WHERE eventId = ?", new String[]{String.valueOf(eventId)});
         while (cursor.moveToNext()) {
-            times.add(cursor.getLong(cursor.getColumnIndexOrThrow("timeMillis")));
+            ReminderTimes time = new ReminderTimes();
+            time.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+            time.setEventId(cursor.getInt(cursor.getColumnIndexOrThrow("eventId")));
+            time.setTimeMillis(cursor.getLong(cursor.getColumnIndexOrThrow("timeMillis")));
+            time.setLabel(cursor.getString(cursor.getColumnIndexOrThrow("label")));
+
+            times.add(time);
         }
         cursor.close();
         return times;
@@ -210,6 +221,33 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("reminder_times", "eventId = ?", new String[]{String.valueOf(eventId)});
     }
+
+    public void updateReminderTimes(int eventId, Set<ReminderTimes> newTimes) {
+        Set<ReminderTimes> existingTimes = getReminderTimesByEventId(eventId);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Thêm mới nếu chưa có
+        for (ReminderTimes newTime : newTimes) {
+            if (!existingTimes.contains(newTime)) {
+                ContentValues values = new ContentValues();
+                values.put("eventId", eventId);
+                values.put("timeMillis", newTime.getTimeMillis());
+                values.put("label", newTime.getLabel()); // nếu có dùng label
+                db.insert("reminder_times", null, values);
+            }
+        }
+
+        // Xoá những cái không còn tồn tại
+        for (ReminderTimes existing : existingTimes) {
+            if (!newTimes.contains(existing)) {
+                db.delete("reminder_times", "eventId = ? AND timeMillis = ?", new String[]{
+                        String.valueOf(eventId),
+                        String.valueOf(existing.getTimeMillis())
+                });
+            }
+        }
+    }
+
 
 
 }

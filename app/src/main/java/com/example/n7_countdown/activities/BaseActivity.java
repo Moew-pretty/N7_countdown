@@ -1,13 +1,19 @@
 package com.example.n7_countdown.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
@@ -27,6 +33,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         // Tải ngôn ngữ đã lưu trước khi gọi super.onCreate
         loadLocale();
         super.onCreate(savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(BaseActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+            NotificationChannel channel = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                channel = new NotificationChannel("default", "Kênh chung", NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
 
         // Mở db liên tục để debug
         timeDBHelper = new TimeEventDatabaseHelper(this);

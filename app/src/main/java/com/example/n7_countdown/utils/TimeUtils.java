@@ -1,5 +1,6 @@
 package com.example.n7_countdown.utils;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import java.util.Locale;
 public class TimeUtils {
 
     // Đếm ngược theo thời gian thực
-    public static CountDownTimer startCountUpOrDownTimer(long targetMillis, TextView textView) {
+    public static CountDownTimer startCountUpOrDownTimer(Context context, long targetMillis, TextView textView) {
         long currentMillis = System.currentTimeMillis();
         long diff = Math.abs(targetMillis - currentMillis);
 
@@ -29,16 +30,16 @@ public class TimeUtils {
                 long now = System.currentTimeMillis();
                 long diff = Math.abs(now - targetMillis);
 
-                String prefix = isFuture ? "Còn " : "Qua ";
-                textView.setText(String.format("%s%s", prefix, formatDurationSmart(diff)));
+                String prefix = isFuture
+                        ? context.getString(R.string.event_time_remain)
+                        : context.getString(R.string.event_time_passed);
+                textView.setText(String.format("%s %s", prefix, formatDurationSmart(context,diff)));
             }
 
             @Override
             public void onFinish() {
                 if (isFuture) {
                     textView.setText(R.string.event_begin);
-                } else {
-                    textView.setText(R.string.event_end);
                 }
             }
         };
@@ -68,8 +69,6 @@ public class TimeUtils {
             public void onFinish() {
                 if (isFuture) {
                     textView.setText(R.string.event_begin);
-                } else {
-                    textView.setText(R.string.event_end);
                 }
             }
         };
@@ -118,7 +117,7 @@ public class TimeUtils {
         return isFuture ? "Còn lại: " + result : "Đã qua: " + result;
     }
 
-    public static String formatDurationSmart(long millis) {
+    public static String formatDurationSmart(Context context, long millis) {
         millis = Math.max(0, millis); // tránh số âm
 
         long seconds = (millis / 1000) % 60;
@@ -127,13 +126,13 @@ public class TimeUtils {
         long days = millis / (1000 * 60 * 60 * 24);
 
         if (days > 0) {
-            return days + " ngày";
+            return days + " " + context.getString(R.string.days_unit_downcase);
         } else if (hours > 0) {
-            return hours + " giờ";
+            return hours + " " +  context.getString(R.string.hours_unit_downcase);
         } else if (minutes > 0) {
-            return minutes + " phút";
+            return minutes + " " +  context.getString(R.string.minutes_unit_downcase);
         } else {
-            return seconds + " giây";
+            return seconds + " " +  context.getString(R.string.seconds_unit_downcase);
         }
     }
 

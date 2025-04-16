@@ -1,5 +1,7 @@
 package com.example.n7_countdown.dto;
 
+import com.example.n7_countdown.models.ReminderTimes;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +13,7 @@ public class EventDTO {
     private String location;
     private String note;
     private boolean isReminder;
-    private Set<Long> reminderTimeMillis = new HashSet<>();
+    private Set<ReminderTimes> reminderTimes = new HashSet<>();
     private String subject;
     private int color;
     private String imageUri;
@@ -75,15 +77,6 @@ public class EventDTO {
     public void setReminder(boolean reminder) {
         isReminder = reminder;
     }
-
-    public Set<Long> getReminderTimeMillis() {
-        return reminderTimeMillis;
-    }
-
-    public void setReminderTimeMillis(Set<Long> reminderTimeMillis) {
-        this.reminderTimeMillis = reminderTimeMillis;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -108,5 +101,12 @@ public class EventDTO {
         this.imageUri = imageUri;
     }
 
+    public Set<ReminderTimes> getReminderTimes() {
+        return reminderTimes;
+    }
+
+    public void setReminderTimes(Set<ReminderTimes> reminderTimes) {
+        this.reminderTimes = reminderTimes;
+    }
 
 }
