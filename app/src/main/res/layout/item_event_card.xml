@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_marginBottom="16dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
-
-    <!-- ví dụ: android:id="@+id/groupText", "@+id/countdownText" -->
 
     <RelativeLayout
         android:layout_width="match_parent"

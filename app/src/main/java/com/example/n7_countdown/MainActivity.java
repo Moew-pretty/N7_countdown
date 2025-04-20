@@ -2,12 +2,15 @@ package com.example.n7_countdown;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -28,7 +31,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends BaseActivity {
-    private LinearLayout cardContainer;
+    ViewGroup container;
     private TimeEventDatabaseHelper dbHelper;
 
 
@@ -49,7 +52,12 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         setupBottomNavigation(R.id.nav_home);
 
-        cardContainer = findViewById(R.id.cardContainer);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            container = findViewById(R.id.cardGrid);
+        } else {
+            container = findViewById(R.id.cardContainer);
+        }
+
         dbHelper = new TimeEventDatabaseHelper(this);
 
         loadEventCards();
@@ -64,10 +72,17 @@ public class MainActivity extends BaseActivity {
             List<TimeEvent> events = dbHelper.getAllEvents(1);
 
             handler.post(() -> {
-                cardContainer.removeAllViews();
+                container.removeAllViews();
 
                 for (TimeEvent event : events) {
-                    View cardView = LayoutInflater.from(this).inflate(R.layout.item_event_card, cardContainer, false);
+                    View cardView = LayoutInflater.from(this).inflate(R.layout.item_event_card, container, false);
+                    if (container instanceof GridLayout) {
+                        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                        params.width = 0;
+                        params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                        params.setMargins(16, 16, 16, 16);
+                        cardView.setLayoutParams(params);
+                    }
 
                     TextView eventTime = cardView.findViewById(R.id.eventTime);
                     EditText eventName = cardView.findViewById(R.id.eventName);
@@ -89,7 +104,8 @@ public class MainActivity extends BaseActivity {
 
                     ImageButton menuBtn = cardView.findViewById(R.id.eventMenuBtn);
                     menuBtn.setOnClickListener(v -> {
-                        PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
+                        PopupMenu popupMenu = new PopupMenu(menuBtn.getContext(), menuBtn);
+
                         popupMenu.getMenuInflater().inflate(R.menu.menu_event_options, popupMenu.getMenu());
 
                         popupMenu.setOnMenuItemClickListener(item -> {
@@ -102,7 +118,7 @@ public class MainActivity extends BaseActivity {
                                 return true;
                             } else if (itemId == R.id.action_delete) {
                                 dbHelper.deleteEvent(event.getId());
-                                cardContainer.removeView(cardView);
+                                container.removeView(cardView);
                                 Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();
                                 return true;
                             } else if (itemId == R.id.action_edit) {
@@ -117,7 +133,7 @@ public class MainActivity extends BaseActivity {
                         popupMenu.show();
                     });
 
-                    cardContainer.addView(cardView);
+                    container.addView(cardView);
                 }
             });
         });
