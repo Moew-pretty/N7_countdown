@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "633796706158",
+    "project_id": "nhom7-20d9d",
+    "storage_bucket": "nhom7-20d9d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633796706158:android:76bd9e7b583b5182b0cb7f",
+        "android_client_info": {
+          "package_name": "com.example.n7_countdown"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGAAHqpJTi3nNq2yVaFBJrmV9_GMU_Ov0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

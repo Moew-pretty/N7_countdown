@@ -33,7 +33,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    android:tint="#666666"
+                    app:tint="#666666"
                     android:contentDescription="Close"/>
 
                 <TextView
@@ -58,11 +58,11 @@
                 android:layout_marginBottom="8dp">
 
                 <ImageView
+                    android:id="@+id/ivAvatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@android:drawable/ic_dialog_info"
-                    android:tint="#666666"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginEnd="16dp"
+                    android:src="@android:drawable/ic_dialog_info" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -165,6 +165,7 @@
                     android:padding="8dp"
                     android:drawableStart="@android:drawable/ic_menu_send"
                     android:drawablePadding="16dp"/>
+
 
                 <TextView
                     android:id="@+id/tvInviteFriends"
