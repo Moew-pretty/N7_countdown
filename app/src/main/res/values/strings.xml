@@ -143,5 +143,9 @@
     <string name="is_coming">đã đến!</string>
     <string name="will_begin_in">diễn ra trong</string>
 
+    <!--giaodien-->
+    <string name="night_mode_option">Chuyển sang Night mode</string>
+    <string name="light_mode_option">Chuyển sang Light mode</string>
+
 
 </resources>
