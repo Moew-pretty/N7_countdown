@@ -1,4 +1,4 @@
-package com.example.n7_countdown.receivers;
+package com.example.n7_countdown.notification;
 
 import android.Manifest;
 import android.app.NotificationChannel;
@@ -61,9 +61,11 @@ public class EventNotificationReceiver extends BroadcastReceiver {
             NotificationChannel channel = new NotificationChannel(
                     "default",
                     "Kênh chung",
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_DEFAULT
             );
             channel.setDescription("Thông báo khi đến giờ sự kiện");
+            channel.setSound(null, null);
+            channel.enableVibration(false);
 
             NotificationManager manager = context.getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);

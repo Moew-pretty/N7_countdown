@@ -21,7 +21,7 @@ import com.example.n7_countdown.dto.EventDTO;
 import com.example.n7_countdown.models.ReminderTimes;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
-import com.example.n7_countdown.utils.ReminderManager;
+import com.example.n7_countdown.notification.ReminderManager;
 
 import java.util.Calendar;
 import java.util.HashMap;

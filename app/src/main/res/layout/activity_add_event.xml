@@ -104,12 +104,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/event_name_label"/>
-
-                <EditText
-                    android:id="@+id/eventLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/event_location_prefix" />
             </LinearLayout>
 
             <!-- Trường nhập liệu -->
@@ -257,6 +251,20 @@
                     android:orientation="horizontal"
                     android:padding="8dp"
                     android:visibility="gone"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/eventLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/event_location_prefix" />
             </LinearLayout>
 
             <LinearLayout

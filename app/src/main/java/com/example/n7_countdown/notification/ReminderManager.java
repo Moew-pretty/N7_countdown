@@ -1,4 +1,4 @@
-package com.example.n7_countdown.utils;
+package com.example.n7_countdown.notification;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,7 +12,6 @@ import android.util.Log;
 import com.example.n7_countdown.R;
 import com.example.n7_countdown.models.ReminderTimes;
 import com.example.n7_countdown.models.TimeEvent;
-import com.example.n7_countdown.receivers.EventNotificationReceiver;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 
 import java.util.Objects;

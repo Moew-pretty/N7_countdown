@@ -211,7 +211,7 @@ public class CountdownActivity extends AppCompatActivity {
             inputStream.close();
             outputStream.close();
 
-            return targetFile.getAbsolutePath(); // bạn lưu cái này vào imageUri
+            return targetFile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
