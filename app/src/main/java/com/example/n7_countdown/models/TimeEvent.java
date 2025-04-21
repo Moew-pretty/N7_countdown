@@ -14,9 +14,8 @@ public class TimeEvent {
     private String note;
     private boolean isReminder;         // Có bật thông báo hay không
     private Set<ReminderTimes> reminderTimes = new HashSet<>();    // Thời điểm nhắc nhở (nếu có)
-    private String subject;             // Môn học / học phần
+    private String eventType;
     private int color;
-    private boolean isCountUp;          // true = Đếm ngược, false = Đếm thời gian đã qua
     private long createdAt;
     private String imageUri;
 
@@ -24,7 +23,7 @@ public class TimeEvent {
 
     }
 
-    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, Set<ReminderTimes> reminderTimes, String subject, int color, boolean isCountUp, long createdAt, String imageUri) {
+    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, Set<ReminderTimes> reminderTimes, int color, long createdAt, String imageUri) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -34,9 +33,7 @@ public class TimeEvent {
         this.note = note;
         this.isReminder = isReminder;
         this.reminderTimes = reminderTimes;
-        this.subject = subject;
         this.color = color;
-        this.isCountUp = isCountUp;
         this.createdAt = createdAt;
         this.imageUri = imageUri;
     }
@@ -105,14 +102,6 @@ public class TimeEvent {
         this.reminderTimes = reminderTimes;
     }
 
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
     public boolean isReminder() {
         return isReminder;
     }
@@ -121,20 +110,20 @@ public class TimeEvent {
         isReminder = reminder;
     }
 
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
     public int getColor() {
         return color;
     }
 
     public void setColor(int color) {
         this.color = color;
-    }
-
-    public boolean isCountUp() {
-        return isCountUp;
-    }
-
-    public void setCountUp(boolean countUp) {
-        isCountUp = countUp;
     }
 
     public long getCreatedAt() {

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +49,7 @@ public class EditEventActivity extends BaseActivity {
         btnSave = findViewById(R.id.btnSaveEvent);
 
         Button btnShowReminder = findViewById(R.id.btnShowReminderOptions);
-        LinearLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
+        GridLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
 
         btnShowReminder.setOnClickListener(v -> {
             if (reminderContainer.getVisibility() == View.GONE) {
@@ -132,7 +132,7 @@ public class EditEventActivity extends BaseActivity {
     }
 
     private void setupReminderOptions() {
-        LinearLayout container = findViewById(R.id.reminderOptionsContainer);
+        GridLayout container = findViewById(R.id.reminderOptionsContainer);
 
         // Định nghĩa các lựa chọn nhắc nhở
         LinkedHashMap<String, Long> options = new LinkedHashMap<>();
@@ -154,6 +154,11 @@ public class EditEventActivity extends BaseActivity {
 
         for (Map.Entry<String, Long> entry : options.entrySet()) {
             CheckBox checkBox = new CheckBox(this);
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 0;
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            checkBox.setLayoutParams(params);
+
             checkBox.setText(entry.getKey());
             container.addView(checkBox);
             reminderOptionMap.put(checkBox, entry.getValue());

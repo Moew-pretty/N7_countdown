@@ -51,11 +51,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/remindBtn_hide"/>
 
-            <LinearLayout
+            <GridLayout
                 android:id="@+id/reminderOptionsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:columnCount="2"
+                android:orientation="horizontal"
                 android:padding="8dp"
                 android:visibility="gone"/>
         </LinearLayout>

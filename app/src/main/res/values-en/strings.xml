@@ -70,6 +70,7 @@
     <string name="add_event_title">Add Event</string>
     <string name="save_button">SAVE</string>
     <string name="days_label">Days</string>
+    <string name="event_name_label">Event Name</string>
     <string name="select_date_label">Select Date</string>
     <string name="select_date_hint">Select Date</string>
     <string name="select_time_label">Time</string>

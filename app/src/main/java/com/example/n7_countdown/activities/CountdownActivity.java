@@ -2,12 +2,20 @@ package com.example.n7_countdown.activities;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.n7_countdown.MainActivity;
@@ -15,11 +23,20 @@ import com.example.n7_countdown.R;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class CountdownActivity extends AppCompatActivity {
     private TextView eventName, eventLocation, eventNote;
     private TextView days, hours, minutes, seconds;
     private CountDownTimer timer;
     private TimeEventDatabaseHelper dbHelper;
+    private TimeEvent event;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri selectedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +52,9 @@ public class CountdownActivity extends AppCompatActivity {
         minutes = findViewById(R.id.minutes);
         seconds = findViewById(R.id.seconds);
 
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(v -> openImageChooser());
+
         dbHelper = new TimeEventDatabaseHelper(this);
 
         int eventId = getIntent().getIntExtra("eventId", -1);
@@ -44,23 +64,28 @@ public class CountdownActivity extends AppCompatActivity {
             return;
         }
 
-        TimeEvent event = dbHelper.getEventById(eventId);
+        event = dbHelper.getEventById(eventId);
 
         // Hiển thị dữ liệu
         if(event.getName() != null) {
-            eventName.setText(String.format("%s%s", getString(R.string.event_name_prefix), event.getName()));
+            eventName.setText(String.format("%s %s", getString(R.string.event_name_prefix), event.getName()));
         } else {
             eventName.setText(R.string.event_name_prefix);
         }
         if(event.getLocation() != null) {
-            eventLocation.setText(String.format("%s%s", getString(R.string.event_location_prefix), event.getLocation()));
+            eventLocation.setText(String.format("%s %s", getString(R.string.event_location_prefix), event.getLocation()));
         } else {
-            eventLocation.setText(getString(R.string.event_location_prefix) + getString(R.string.no_value));
+            eventLocation.setText(String.format("%s %s", getString(R.string.event_location_prefix), getString(R.string.no_value)));
         }
         if(event.getNote() != null) {
-            eventNote.setText(String.format("%s%s", getString(R.string.event_note_prefix), event.getNote()));
+            eventNote.setText(String.format("%s %s", getString(R.string.event_note_prefix), event.getNote()));
         } else {
-            eventNote.setText(getString(R.string.event_note_prefix) + getString(R.string.no_value));
+            eventNote.setText(String.format("%s %s", getString(R.string.event_note_prefix), getString(R.string.no_value)));
+        }
+
+        String imageUriStr = event.getImageUri();
+        if (imageUriStr != null && !imageUriStr.equals("")) {
+            applyBackground(imageUriStr);
         }
 
         // Đếm theo thời gian
@@ -141,5 +166,57 @@ public class CountdownActivity extends AppCompatActivity {
         super.onDestroy();
         if (timer != null) timer.cancel();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            selectedImageUri = data.getData();
+
+            String localPath = copyImageToInternalStorage(selectedImageUri);
+            event.setImageUri(localPath);
+
+            dbHelper.updateEvent(event);
+
+            applyBackground(localPath);
+        }
+    }
+
+
+    private void openImageChooser() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void applyBackground(String imageUri) {
+        RelativeLayout rootLayout = findViewById(R.id.root_layout);
+        Drawable drawable = Drawable.createFromPath(imageUri);
+        rootLayout.setBackground(drawable);
+    }
+
+    private String copyImageToInternalStorage(Uri sourceUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(sourceUri);
+            File targetFile = new File(getFilesDir(), "background_" + System.currentTimeMillis() + ".jpg");
+            OutputStream outputStream = new FileOutputStream(targetFile);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            inputStream.close();
+            outputStream.close();
+
+            return targetFile.getAbsolutePath(); // bạn lưu cái này vào imageUri
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

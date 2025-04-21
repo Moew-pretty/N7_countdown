@@ -70,6 +70,7 @@
     <string name="add_event_title">Thêm sự kiện</string>
     <string name="save_button">LƯU</string>
     <string name="days_label">Ngày</string>
+    <string name="event_name_label">Tên sự kiện</string>
     <string name="select_date_label">Chọn ngày</string>
     <string name="select_date_hint">Chọn ngày</string>
     <string name="select_time_label">Thời điểm</string>

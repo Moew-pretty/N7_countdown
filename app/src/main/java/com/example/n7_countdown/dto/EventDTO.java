@@ -14,7 +14,7 @@ public class EventDTO {
     private String note;
     private boolean isReminder;
     private Set<ReminderTimes> reminderTimes = new HashSet<>();
-    private String subject;
+    private String eventType;
     private int color;
     private String imageUri;
 
@@ -77,13 +77,15 @@ public class EventDTO {
     public void setReminder(boolean reminder) {
         isReminder = reminder;
     }
-    public String getSubject() {
-        return subject;
+
+    public String getEventType() {
+        return eventType;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
+
 
     public int getColor() {
         return color;

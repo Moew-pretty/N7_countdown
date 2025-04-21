@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +35,7 @@ public class AddEventActivity extends BaseActivity {
     private Spinner spinnerRepeat, spinnerEventType, spinnerReminder;
 
     private Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
-    private EditText etNotes;
+    private EditText etNotes, etEventName, etEventLocation;
     private Button btnSave;
     private ImageView ivClose;
     private TimeEventDatabaseHelper dbHelper;
@@ -53,8 +53,12 @@ public class AddEventActivity extends BaseActivity {
         tvCountdownValue = findViewById(R.id.tvCountdownValue);
         spinnerRepeat = findViewById(R.id.spinnerRepeat);
         spinnerEventType = findViewById(R.id.spinnerEventType);
-        spinnerReminder = findViewById(R.id.spinnerReminder);
+//        spinnerReminder = findViewById(R.id.spinnerReminder);
+
         setupReminderOptions();
+
+        etEventName = findViewById(R.id.eventName);
+        etEventLocation = findViewById(R.id.eventLocation);
         etNotes = findViewById(R.id.etNotes);
         btnSave = findViewById(R.id.btnSave);
         ivClose = findViewById(R.id.ivClose);
@@ -64,7 +68,7 @@ public class AddEventActivity extends BaseActivity {
         tvTime.setOnClickListener(v -> openDateTimePicker());
 
         Button btnShowReminder = findViewById(R.id.btnShowReminderOptions);
-        LinearLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
+        GridLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
 
         btnShowReminder.setOnClickListener(v -> {
             if (reminderContainer.getVisibility() == View.GONE) {
@@ -105,9 +109,10 @@ public class AddEventActivity extends BaseActivity {
     }
 
     private void saveEvent() {
+        String eventName = etEventName.getText().toString().trim();
+        String location = etEventLocation.getText().toString().trim();
         String note = etNotes.getText().toString().trim();
         String eventType = spinnerEventType.getSelectedItem().toString();
-        String reminderStr = spinnerReminder.getSelectedItem().toString();
         int color = Color.BLUE;
         String imageUri = "";
 
@@ -131,10 +136,12 @@ public class AddEventActivity extends BaseActivity {
 
         EventDTO event = new EventDTO();
         event.setTimestampMillis(selectedMillis);
-        event.setName(eventType);
+        event.setName(eventName);
+        event.setLocation(location);
         event.setNote(note);
         event.setReminderTimes(selectedReminders);
         event.setReminder(isReminder);
+        event.setEventType(eventType);
         event.setColor(color);
         event.setImageUri(imageUri);
 
@@ -151,7 +158,7 @@ public class AddEventActivity extends BaseActivity {
     }
 
     private void setupReminderOptions() {
-        LinearLayout container = findViewById(R.id.reminderOptionsContainer);
+        GridLayout container = findViewById(R.id.reminderOptionsContainer);
 
         // Định nghĩa các lựa chọn nhắc nhở
         LinkedHashMap<String, Long> options = new LinkedHashMap<>();
@@ -173,6 +180,11 @@ public class AddEventActivity extends BaseActivity {
 
         for (Map.Entry<String, Long> entry : options.entrySet()) {
             CheckBox checkBox = new CheckBox(this);
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = 0;
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            checkBox.setLayoutParams(params);
+
             checkBox.setText(entry.getKey());
             container.addView(checkBox);
             reminderOptionMap.put(checkBox, entry.getValue());

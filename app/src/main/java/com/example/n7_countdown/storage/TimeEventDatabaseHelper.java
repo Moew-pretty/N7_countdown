@@ -19,7 +19,7 @@ import java.util.Set;
 public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     public static final String TABLE_NAME = "time_events";
 
     public TimeEventDatabaseHelper(Context context) {
@@ -36,9 +36,8 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 "location TEXT," +
                 "note TEXT," +
                 "isReminder INTEGER," +
-                "subject TEXT," +
+                "eventType TEXT," +
                 "color INTEGER," +
-                "isCountUp INTEGER," +
                 "createdAt INTEGER," +
                 "imageUri TEXT," +
                 "FOREIGN KEY(userId) REFERENCES User(id)" +
@@ -74,7 +73,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         values.put("location", event.getLocation());
         values.put("note", event.getNote());
         values.put("isReminder", event.isReminder() ? 1 : 0);
-        values.put("subject", event.getSubject());
+        values.put("eventType", event.getEventType());
         values.put("color", event.getColor());
         values.put("createdAt", System.currentTimeMillis());
         values.put("imageUri", event.getImageUri());
@@ -98,7 +97,6 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 event.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
                 event.setTimestampMillis(cursor.getLong(cursor.getColumnIndexOrThrow("timestampMillis")));
                 event.setReminder(cursor.getInt(cursor.getColumnIndexOrThrow("isReminder")) == 1);
-                event.setCountUp(cursor.getInt(cursor.getColumnIndexOrThrow("isCountUp")) == 1);
                 event.setCreatedAt(cursor.getLong(cursor.getColumnIndexOrThrow("createdAt")));
                 eventList.add(event);
             } while (cursor.moveToNext());
@@ -122,9 +120,8 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
             event.setLocation(cursor.getString(cursor.getColumnIndexOrThrow("location")));
             event.setNote(cursor.getString(cursor.getColumnIndexOrThrow("note")));
             event.setReminder(cursor.getInt(cursor.getColumnIndexOrThrow("isReminder")) == 1);
-            event.setSubject(cursor.getString(cursor.getColumnIndexOrThrow("subject")));
+            event.setEventType(cursor.getString(cursor.getColumnIndexOrThrow("eventType")));
             event.setColor(cursor.getInt(cursor.getColumnIndexOrThrow("color")));
-            event.setCountUp(cursor.getInt(cursor.getColumnIndexOrThrow("isCountUp")) == 1);
             event.setCreatedAt(cursor.getLong(cursor.getColumnIndexOrThrow("createdAt")));
             event.setImageUri(cursor.getString(cursor.getColumnIndexOrThrow("imageUri")));
         } else {
@@ -159,11 +156,12 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         if (event.getNote() != null) {
             values.put("note", event.getNote());
         }
-        if (event.getSubject() != null) {
-            values.put("subject", event.getSubject());
-        }
         if (event.getImageUri() != null) {
             values.put("imageUri", event.getImageUri());
+        }
+
+        if (event.getEventType() != null) {
+            values.put("eventType", event.getEventType());
         }
 
         if (event.getColor() != -1) {
@@ -172,9 +170,6 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
 
         if (event.isReminder()) {
             values.put("isReminder", 1);
-        }
-        if (event.isCountUp()) {
-            values.put("isCountUp", 1);
         }
 
         if (values.size() > 0) {

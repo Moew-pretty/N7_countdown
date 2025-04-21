@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,13 +109,7 @@ public class MainActivity extends BaseActivity {
 
                         popupMenu.setOnMenuItemClickListener(item -> {
                             int itemId = item.getItemId();
-                            if (itemId == R.id.action_duplicate) {
-                                Toast.makeText(MainActivity.this, "Đã chọn: Tạo bản sao", Toast.LENGTH_SHORT).show();
-                                return true;
-                            } else if (itemId == R.id.action_share) {
-                                Toast.makeText(MainActivity.this, "Đã chọn: Chia sẻ", Toast.LENGTH_SHORT).show();
-                                return true;
-                            } else if (itemId == R.id.action_delete) {
+                            if (itemId == R.id.action_delete) {
                                 dbHelper.deleteEvent(event.getId());
                                 container.removeView(cardView);
                                 Toast.makeText(MainActivity.this, "Đã xóa sự kiện", Toast.LENGTH_SHORT).show();

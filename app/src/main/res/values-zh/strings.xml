@@ -70,6 +70,7 @@
     <string name="add_event_title">添加事件</string>
     <string name="save_button">保存</string>
     <string name="days_label">天</string>
+    <string name="event_name_label">事件名称</string>
     <string name="select_date_label">选择日期</string>
     <string name="select_date_hint">选择日期</string>
     <string name="select_time_label">时间</string>
