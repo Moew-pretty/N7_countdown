@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,16 +24,15 @@ import com.example.n7_countdown.R;
 import com.example.n7_countdown.models.User;
 import com.example.n7_countdown.storage.UserDatabaseHelper;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Locale;
 
 public class SettingsActivity extends BaseActivity {
     private LinearLayout userInfoLayout;
-    private TextView tvGroupName, tvEmail, tvError, tvRename, tvBackup, tvLogout, tvGuide, tvLanguage, tvInviteFriends, tvTheme, tvFeedback, tvReportBug;
+    private TextView tvGroupName, tvEmail, tvError, tvRename, tvBackup, tvLogout, tvGuide, tvLanguage, tvInviteFriends, tvTheme, tvFeedback, tvReportBug, tvNewFeatures;
+    private ImageView ivAvatar, ivClose;
+    private Button btnLoginRegister;
     private UserDatabaseHelper dbHelper;
-    private ImageView ivAvatar;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +77,51 @@ public class SettingsActivity extends BaseActivity {
         tvGuide = findViewById(R.id.tvGuide);
         tvLanguage = findViewById(R.id.tvLanguage);
         tvInviteFriends = findViewById(R.id.tvInviteFriends);
-        tvFeedback    = findViewById(R.id.tvFeedback);
-        tvReportBug   = findViewById(R.id.tvReportBug);
+        tvFeedback = findViewById(R.id.tvFeedback);
+        tvReportBug = findViewById(R.id.tvReportBug);
+        tvNewFeatures = findViewById(R.id.tvNewFeatures);
         ivAvatar = findViewById(R.id.ivAvatar);
+        ivClose = findViewById(R.id.ivClose);
+        btnLoginRegister = findViewById(R.id.btnLoginRegister);
         dbHelper = new UserDatabaseHelper(this);
+        this.prefs = prefs;
 
         setupBottomNavigation(R.id.nav_settings);
         updateUI();
+
+        // Xử lý sự kiện nhấn nút Đăng nhập / Đăng ký
+        btnLoginRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+        // Xử lý sự kiện nhấn nút Đóng
+        ivClose.setOnClickListener(v -> finish());
+
+        // Xử lý sự kiện cho các mục cài đặt
+        tvRename.setOnClickListener(v -> {
+            if (isLoggedIn()) {
+                showRenameDialog();
+            } else {
+                Toast.makeText(this, R.string.error_not_logged_in, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tvBackup.setOnClickListener(v -> {
+            if (isLoggedIn()) {
+                performBackup();
+            } else {
+                Toast.makeText(this, R.string.error_not_logged_in, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tvLogout.setOnClickListener(v -> {
+            if (isLoggedIn()) {
+                logout();
+            } else {
+                Toast.makeText(this, R.string.error_not_logged_in, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         View.OnClickListener emailListener = v -> {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
@@ -116,11 +154,18 @@ public class SettingsActivity extends BaseActivity {
         });
 
         tvLanguage.setOnClickListener(v -> showLanguageDialog());
+
+        tvNewFeatures.setOnClickListener(v -> {
+            Toast.makeText(this, R.string.new_features_not_implemented, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private boolean isLoggedIn() {
+        return prefs.getBoolean("isLoggedIn", false);
     }
 
     private void updateUI() {
-        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        boolean isLoggedIn = isLoggedIn();
         String email = prefs.getString("email", null);
 
         if (isLoggedIn && email != null) {
@@ -132,28 +177,21 @@ public class SettingsActivity extends BaseActivity {
                 tvError.setVisibility(View.GONE);
             } else {
                 tvError.setVisibility(View.VISIBLE);
-                tvError.setText("Không tìm thấy thông tin người dùng");
+                tvError.setText(R.string.error_user_not_found);
             }
             userInfoLayout.setVisibility(View.VISIBLE);
+            btnLoginRegister.setVisibility(View.GONE);
             tvRename.setVisibility(View.VISIBLE);
             tvBackup.setVisibility(View.VISIBLE);
             tvLogout.setVisibility(View.VISIBLE);
-            tvLogout.setOnClickListener(v -> {
-                // Đăng xuất
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.clear();
-                editor.apply();
-                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
-                finish();
-            });
         } else {
             // Người dùng chưa đăng nhập
             userInfoLayout.setVisibility(View.GONE);
+            btnLoginRegister.setVisibility(View.VISIBLE);
             tvRename.setVisibility(View.GONE);
             tvBackup.setVisibility(View.GONE);
             tvLogout.setVisibility(View.GONE);
-            tvError.setVisibility(View.VISIBLE);
-            tvError.setText("Vui lòng đăng nhập để sử dụng đầy đủ tính năng");
+            tvError.setVisibility(View.GONE);
         }
     }
 
@@ -208,4 +246,47 @@ public class SettingsActivity extends BaseActivity {
         finish();
     }
 
+    private void showRenameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.rename_option);
+
+        final EditText input = new EditText(this);
+        input.setText(prefs.getString("groupName", ""));
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String newGroupName = input.getText().toString().trim();
+            if (!newGroupName.isEmpty()) {
+                String email = prefs.getString("email", null);
+                if (email != null) {
+                    dbHelper.updateGroupName(email, newGroupName);
+                    prefs.edit().putString("groupName", newGroupName).apply();
+                    updateUI();
+                    Toast.makeText(this, R.string.rename_success, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, R.string.register_empty_error, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.show();
+    }
+
+    private void performBackup() {
+        Toast.makeText(this, R.string.backup_not_implemented, Toast.LENGTH_SHORT).show();
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+        updateUI();
+        Toast.makeText(this, R.string.logout_success, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI(); // Cập nhật giao diện khi quay lại từ LoginActivity
+    }
 }

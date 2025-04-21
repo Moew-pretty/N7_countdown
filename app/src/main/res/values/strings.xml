@@ -46,6 +46,10 @@
     <string name="language_option">Ngôn ngữ</string>
     <string name="theme_option">Giao diện</string>
     <string name="new_features_option">Cập nhật tính năng mới</string>
+    <string name="new_features_not_implemented">Chưa có tính năng mới</string>
+    <string name="backup_not_implemented">Chức năng sao lưu chưa được triển khai</string>
+    <string name="cancel">Hủy</string>
+    <string name="rename_success">Đổi tên thành công</string>
     <string name="feedback_option">Ý kiến</string>
     <string name="invite_friends_option">Mời bạn bè</string>
     <string name="guide_option">Hướng dẫn sử dụng</string>
@@ -130,8 +134,8 @@
     <!-- Language selection -->
     <string name="select_language">Chọn ngôn ngữ</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_english">English</string>
-    <string name="language_chinese">中文</string>
+    <string name="language_english">Tiếng Anh</string>
+    <string name="language_chinese">Trung Quốc</string>
 
     <!-- others-->
     <string name="no_value">không có</string>
@@ -148,5 +152,7 @@
     <string name="night_mode_option">Chuyển sang Night mode</string>
     <string name="light_mode_option">Chuyển sang Light mode</string>
 
+    <string name="login_register_button">Đăng nhập / Đăng ký</string>
+    <string name="logout_success">Đăng xuất thành công</string>
 
 </resources>

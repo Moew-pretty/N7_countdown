@@ -48,6 +48,10 @@
     <string name="new_features_option">更新新功能</string>
     <string name="feedback_option">反馈</string>
     <string name="invite_friends_option">邀请朋友</string>
+    <string name="new_features_not_implemented">暂无新功能</string>
+    <string name="backup_not_implemented">备份功能尚未实现</string>
+    <string name="cancel">取消</string>
+    <string name="rename_success">重命名成功</string>
     <string name="guide_option">使用指南</string>
     <string name="report_bug_option">报告错误</string>
     <string name="logout_option">退出登录</string>
@@ -143,5 +147,8 @@
 
     <string name="is_coming">即将到来!</string>
     <string name="will_begin_in">将于</string>
+
+    <string name="login_register_button">登录 / 注册</string>
+    <string name="logout_success">退出登录成功</string>
 
 </resources>

@@ -78,4 +78,14 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return user;
     }
+    // Cập nhật tên nhóm của người dùng
+    public boolean updateGroupName(String email, String newGroupName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GROUP_NAME, newGroupName);
+
+        int rowsAffected = db.update(TABLE_USERS, values, COLUMN_EMAIL + " = ?", new String[]{email});
+        db.close();
+        return rowsAffected > 0;
+    }
 }

@@ -47,7 +47,7 @@
                     android:gravity="center"/>
             </LinearLayout>
 
-            <!-- Thông tin người dùng -->
+            <!-- Thông tin người dùng hoặc nút đăng nhập -->
             <LinearLayout
                 android:id="@+id/userInfoLayout"
                 android:layout_width="match_parent"
@@ -55,7 +55,8 @@
                 android:orientation="horizontal"
                 android:padding="16dp"
                 android:background="@android:color/white"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/ivAvatar"
@@ -86,22 +87,36 @@
                         android:text="@string/email_default"
                         android:textSize="14sp"
                         android:textColor="#666666"/>
-
-                    <TextView
-                        android:id="@+id/tvError"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/error_not_logged_in"
-                        android:textSize="12sp"
-                        android:textColor="#FF0000"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Nút Đăng nhập / Đăng ký -->
+            <Button
+                android:id="@+id/btnLoginRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/login_register_button"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#42A5F5"
+                android:padding="12dp"
+                android:visibility="visible" />
+
+            <!-- Thông báo lỗi (nếu có) -->
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:textColor="#FF0000"
+                android:textSize="12sp"
+                android:visibility="gone"/>
 
             <!-- Danh sách tùy chọn -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@android:color/white"
                 android:padding="8dp">
@@ -114,7 +129,8 @@
                     android:textSize="18sp"
                     android:padding="8dp"
                     android:drawableStart="@android:drawable/ic_menu_edit"
-                    android:drawablePadding="16dp"/>
+                    android:drawablePadding="16dp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvBackup"
@@ -124,7 +140,8 @@
                     android:textSize="18sp"
                     android:padding="8dp"
                     android:drawableStart="@android:drawable/ic_menu_upload"
-                    android:drawablePadding="16dp"/>
+                    android:drawablePadding="16dp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvLanguage"
@@ -166,7 +183,6 @@
                     android:drawableStart="@android:drawable/ic_menu_send"
                     android:drawablePadding="16dp"/>
 
-
                 <TextView
                     android:id="@+id/tvInviteFriends"
                     android:layout_width="match_parent"
@@ -205,19 +221,18 @@
                     android:textSize="18sp"
                     android:padding="10dp"
                     android:drawableStart="@android:drawable/ic_lock_power_off"
-                    android:drawablePadding="16dp"/>
+                    android:drawablePadding="16dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/version_label"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:gravity="center"
+                    android:padding="16dp"/>
             </LinearLayout>
-
-            <!-- Phiên bản -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/version_label"
-                android:textSize="12sp"
-                android:textColor="#666666"
-                android:gravity="center"
-                android:padding="16dp"/>
-
         </LinearLayout>
     </ScrollView>
 

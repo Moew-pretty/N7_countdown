@@ -28,17 +28,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     private UserDatabaseHelper userDBHelper;
     public static SQLiteDatabase timeDebugDb;
     public static SQLiteDatabase userDebugDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Tải ngôn ngữ đã lưu trước khi gọi super.onCreate
         loadLocale();
         super.onCreate(savedInstanceState);
 
-        if (ContextCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(BaseActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
-            NotificationChannel channel = null;
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                channel = new NotificationChannel("default", "Kênh chung", NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel("default", "Kênh chung", NotificationManager.IMPORTANCE_DEFAULT);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
                 notificationManager.createNotificationChannel(channel);
             }
@@ -65,13 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_add_event && !AddEventActivity.class.equals(currentClass)) {
                 startActivity(new Intent(this, AddEventActivity.class));
             } else if (itemId == R.id.nav_settings && !SettingsActivity.class.equals(currentClass)) {
-                SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
-                if (isLoggedIn) {
-                    startActivity(new Intent(this, SettingsActivity.class));
-                } else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                }
+                startActivity(new Intent(this, SettingsActivity.class));
             } else {
                 return false;
             }

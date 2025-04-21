@@ -37,17 +37,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Kiểm tra trạng thái đăng nhập
-        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
-
-        if (!isLoggedIn) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
-
         setContentView(R.layout.activity_main);
         setupBottomNavigation(R.id.nav_home);
 
@@ -58,9 +47,7 @@ public class MainActivity extends BaseActivity {
         }
 
         dbHelper = new TimeEventDatabaseHelper(this);
-
         loadEventCards();
-
     }
 
     private void loadEventCards() {
@@ -132,4 +119,9 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadEventCards(); // Tải lại danh sách sự kiện khi quay lại
+    }
 }

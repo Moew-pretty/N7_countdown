@@ -43,6 +43,10 @@
     <string name="error_user_not_found">User information not found</string>
     <string name="rename_option">Rename</string>
     <string name="backup_option">Backup</string>
+    <string name="new_features_not_implemented">No new features available</string>
+    <string name="backup_not_implemented">Backup function not implemented</string>
+    <string name="cancel">Cancel</string>
+    <string name="rename_success">Rename successful</string>
     <string name="language_option">Language</string>
     <string name="theme_option">Theme</string>
     <string name="new_features_option">Update New Features</string>
@@ -143,4 +147,6 @@
     <string name="is_coming">is coming!</string>
     <string name="will_begin_in">will begin in</string>
 
+    <string name="login_register_button">Login / Register</string>
+    <string name="logout_success">Logout successful</string>
 </resources>
