@@ -19,7 +19,7 @@ import java.util.Set;
 public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
     public static final String TABLE_NAME = "time_events";
 
     public TimeEventDatabaseHelper(Context context) {
@@ -30,7 +30,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "userId INTEGER," +
+                "userEmail TEXT," +
                 "name TEXT," +
                 "timestampMillis INTEGER," +
                 "location TEXT," +
@@ -39,8 +39,7 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
                 "eventType TEXT," +
                 "color INTEGER," +
                 "createdAt INTEGER," +
-                "imageUri TEXT," +
-                "FOREIGN KEY(userId) REFERENCES User(id)" +
+                "imageUri TEXT" +
                 ")";
         db.execSQL(CREATE_TABLE);
 
@@ -63,11 +62,11 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public TimeEvent insertEvent(EventDTO event, int userId) {
+    public TimeEvent insertEvent(EventDTO event, String userEmail) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put("userId", userId);
+        values.put("userEmail", userEmail);
         values.put("name", event.getName());
         values.put("timestampMillis", event.getTimestampMillis());
         values.put("location", event.getLocation());
@@ -81,14 +80,14 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         long eventId = db.insert(TABLE_NAME, null, values);
         insertReminderTimes((int) eventId, event.getReminderTimes());
 
-        db.close();
         return getEventById((int) eventId);
     }
 
-    public List<TimeEvent> getAllEvents(int userId) {
+    public List<TimeEvent> getAllEvents(String userEmail) {
         List<TimeEvent> eventList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where userId=" + userId, null);
+        String sql = "SELECT * FROM time_events WHERE userEmail = ?";
+        Cursor cursor = db.rawQuery(sql, new String[] { userEmail });
 
         if (cursor.moveToFirst()) {
             do {
@@ -103,7 +102,6 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
         return eventList;
     }
 
@@ -144,6 +142,9 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        if (event.getUserEmail() != null) {
+            values.put("userEmail", event.getUserEmail());
+        }
         if (event.getName() != null) {
             values.put("name", event.getName());
         }
@@ -180,6 +181,14 @@ public class TimeEventDatabaseHelper extends SQLiteOpenHelper {
         return getEventById(event.getId());
     }
 
+    public void updateAllNoneUserEvent(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("userEmail", email);
+
+        db.update(TABLE_NAME, values, "userEmail = ?", new String[] { "none" });
+    }
 
 
 

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.n7_countdown.MainActivity;
 import com.example.n7_countdown.R;
+import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 import com.example.n7_countdown.storage.UserDatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvRegister;
     private UserDatabaseHelper dbHelper;
+    private TimeEventDatabaseHelper timeDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
         dbHelper = new UserDatabaseHelper(this);
+        timeDBHelper = new TimeEventDatabaseHelper(this);
 
         btnLogin.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
@@ -47,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("email", email);
                 editor.putBoolean("isLoggedIn", true);
                 editor.apply();
+
+                timeDBHelper.updateAllNoneUserEvent(email);
 
                 Toast.makeText(LoginActivity.this, R.string.login_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));

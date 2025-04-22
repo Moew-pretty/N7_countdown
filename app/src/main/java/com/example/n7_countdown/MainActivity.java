@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.n7_countdown.activities.BaseActivity;
 import com.example.n7_countdown.activities.CountdownActivity;
 import com.example.n7_countdown.activities.EditEventActivity;
-import com.example.n7_countdown.activities.LoginActivity;
 import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 import com.example.n7_countdown.utils.TimeUtils;
@@ -55,7 +54,13 @@ public class MainActivity extends BaseActivity {
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
-            List<TimeEvent> events = dbHelper.getAllEvents(1);
+            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+            String userEmail = prefs.getString("email", "none");
+
+            List<TimeEvent> events = isLoggedIn
+                ? dbHelper.getAllEvents(userEmail)
+                : dbHelper.getAllEvents("none");
 
             handler.post(() -> {
                 container.removeAllViews();

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class EventDTO {
     private int id;
-    private int userId;
+    private String userEmail;
     private String name;
     private long timestampMillis;
     private String location;
@@ -30,12 +30,12 @@ public class EventDTO {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getName() {

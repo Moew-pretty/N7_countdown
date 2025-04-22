@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class TimeEvent {
     private int id;
-    private int userId;
+    private String userEmail;
     private String name;
     private LocalDateTime timestamp;       // Nhập và hiển thị dễ (cá nhân thấy là vậy :)))
     private long timestampMillis;         // Dạng milliseconds
@@ -23,9 +23,8 @@ public class TimeEvent {
 
     }
 
-    public TimeEvent(int id, int userId, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, Set<ReminderTimes> reminderTimes, int color, long createdAt, String imageUri) {
+    public TimeEvent(int id, String name, LocalDateTime timestamp, long timestampMillis, String location, String note, boolean isReminder, Set<ReminderTimes> reminderTimes, int color, long createdAt, String imageUri) {
         this.id = id;
-        this.userId = userId;
         this.name = name;
         this.timestamp = timestamp;
         this.timestampMillis = timestampMillis;
@@ -46,12 +45,12 @@ public class TimeEvent {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getName() {

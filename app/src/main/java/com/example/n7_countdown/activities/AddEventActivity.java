@@ -3,6 +3,7 @@ package com.example.n7_countdown.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -145,8 +146,15 @@ public class AddEventActivity extends BaseActivity {
         event.setColor(color);
         event.setImageUri(imageUri);
 
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        boolean isLoggedIn = prefs.getBoolean("isLoggedIn", false);
+        String userEmail = prefs.getString("email", "none");
+
         // Lưu vào database
-        TimeEvent savedEvent = dbHelper.insertEvent(event, 1); // Thay bằng user id thật
+        TimeEvent savedEvent = isLoggedIn
+                ? dbHelper.insertEvent(event, userEmail)
+                : dbHelper.insertEvent(event, "none");
+
         ReminderManager.scheduleAllReminders(this, savedEvent);
 
         // Trở về trang chủ
