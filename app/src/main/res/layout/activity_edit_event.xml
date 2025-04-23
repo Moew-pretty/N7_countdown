@@ -2,63 +2,136 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:divider="?android:attr/dividerHorizontal"
+        android:showDividers="middle"
+        android:dividerPadding="8dp">
 
-        <EditText
-            android:id="@+id/editEventName"
+        <!-- Tên sự kiện -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tên sự kiện" />
+            android:hint="@string/event_name_label">
 
-        <EditText
-            android:id="@+id/editEventNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ghi chú" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editEventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editEventLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Địa điểm" />
-
-        <Button
-            android:id="@+id/btnPickDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chọn ngày giờ" />
-
-        <TextView
-            android:id="@+id/txtSelectedDateTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chưa chọn"
-            android:padding="8dp" />
-
+        <!-- Ngày và Giờ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp">
-            <Button
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_date_label"
+                android:textSize="16sp"
+                android:drawableStart="@android:drawable/ic_menu_my_calendar"
+                android:drawablePadding="8dp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/select_date_hint"
+                android:textSize="16sp"
+                android:gravity="end"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:drawablePadding="8dp"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_time_label"
+                android:textSize="16sp"
+                android:drawableStart="@android:drawable/ic_menu_recent_history"
+                android:drawablePadding="8dp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/select_time_hint"
+                android:textSize="16sp"
+                android:gravity="end"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:drawablePadding="8dp"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/event_location_prefix">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editEventLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/notes_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editEventNote"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="top|start"
+                android:background="@android:drawable/editbox_background"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnShowReminderOptions"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remindBtn_hide"/>
+                android:text="@string/remindBtn_hide"
+                android:icon="@android:drawable/ic_menu_info_details"/>
 
             <GridLayout
                 android:id="@+id/reminderOptionsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
                 android:columnCount="2"
                 android:orientation="horizontal"
                 android:padding="8dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +139,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="end"
-            android:paddingTop="24dp"
+            android:layout_marginTop="24dp"
             android:weightSum="2">
 
             <Button
@@ -74,15 +147,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Huỷ" />
+                android:layout_marginEnd="8dp"
+                android:text="@string/cancel"
+                android:backgroundTint="@android:color/darker_gray"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btnSaveEvent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Lưu" />
+                android:text="@string/save_button"
+                android:backgroundTint="@color/green"
+                android:textColor="@android:color/white" />
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

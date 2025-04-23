@@ -33,6 +33,7 @@ import java.util.Set;
 
 public class AddEventActivity extends BaseActivity {
     private TextView tvDate, tvTime, tvCountdownValue;
+    private Calendar calendar;
     private Spinner spinnerRepeat, spinnerEventType, spinnerReminder;
 
     private Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
@@ -52,7 +53,7 @@ public class AddEventActivity extends BaseActivity {
         tvDate = findViewById(R.id.tvDate);
         tvTime = findViewById(R.id.tvTime);
         tvCountdownValue = findViewById(R.id.tvCountdownValue);
-        spinnerRepeat = findViewById(R.id.spinnerRepeat);
+//        spinnerRepeat = findViewById(R.id.spinnerRepeat);
         spinnerEventType = findViewById(R.id.spinnerEventType);
 //        spinnerReminder = findViewById(R.id.spinnerReminder);
 
@@ -65,8 +66,9 @@ public class AddEventActivity extends BaseActivity {
         ivClose = findViewById(R.id.ivClose);
 
         // Bấm vào chọn ngày hoặc giờ → mở DateTime picker
-        tvDate.setOnClickListener(v -> openDateTimePicker());
-        tvTime.setOnClickListener(v -> openDateTimePicker());
+        calendar = Calendar.getInstance();
+        tvDate.setOnClickListener(v -> openDatePicker());
+        tvTime.setOnClickListener(v -> openTimePicker());
 
         Button btnShowReminder = findViewById(R.id.btnShowReminderOptions);
         GridLayout reminderContainer = findViewById(R.id.reminderOptionsContainer);
@@ -89,24 +91,32 @@ public class AddEventActivity extends BaseActivity {
 
     }
 
-    private void openDateTimePicker() {
-        Calendar calendar = Calendar.getInstance();
+    private void openDatePicker() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Chọn ngày
-        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+            calendar.set(Calendar.YEAR, selectedYear);
+            calendar.set(Calendar.MONTH, selectedMonth);
+            calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
 
-            // Chọn giờ
-            new TimePickerDialog(this, (view1, hourOfDay, minute) -> {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
+            String dateStr = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+            tvDate.setText(dateStr);
+        }, year, month, day).show();
+    }
 
-                selectedMillis = calendar.getTimeInMillis();
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    private void openTimePicker() {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(this, (view, selectedHour, selectedMinute) -> {
+            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+            calendar.set(Calendar.MINUTE, selectedMinute);
+
+            String timeStr = String.format("%02d:%02d", selectedHour, selectedMinute);
+            tvTime.setText(timeStr);
+        }, hour, minute, true).show();
     }
 
     private void saveEvent() {

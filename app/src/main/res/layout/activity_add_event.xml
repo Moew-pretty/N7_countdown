@@ -93,202 +93,187 @@
                 </FrameLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:layout_marginBottom="12dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="12dp"
+                android:background="@android:color/transparent">
 
-                <EditText
-                    android:id="@+id/eventName"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/event_name_label"/>
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <!-- Trường nhập liệu -->
-            <LinearLayout
+                    <!-- Tên sự kiện -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/event_name_label">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eventName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Ngày và Giờ -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_date_label"
+                            android:textSize="16sp"
+                            android:drawableStart="@android:drawable/ic_menu_my_calendar"
+                            android:drawablePadding="8dp"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/select_date_hint"
+                            android:textSize="16sp"
+                            android:gravity="end"
+                            android:drawableEnd="@android:drawable/arrow_down_float"
+                            android:drawablePadding="8dp"
+                            android:padding="8dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_time_label"
+                            android:textSize="16sp"
+                            android:drawableStart="@android:drawable/ic_menu_recent_history"
+                            android:drawablePadding="8dp"
+                            android:padding="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tvTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/select_time_hint"
+                            android:textSize="16sp"
+                            android:gravity="end"
+                            android:drawableEnd="@android:drawable/arrow_down_float"
+                            android:drawablePadding="8dp"
+                            android:padding="8dp"/>
+                    </LinearLayout>
+
+                    <!-- Lặp lại -->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_marginTop="12dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="@string/repeat_label"-->
+<!--                            android:textSize="16sp"-->
+<!--                            android:padding="8dp"/>-->
+
+<!--                        <Spinner-->
+<!--                            android:id="@+id/spinnerRepeat"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:spinnerMode="dropdown"/>-->
+<!--                    </LinearLayout>-->
+
+                    <!-- Loại sự kiện -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/event_type_label"
+                            android:textSize="16sp"
+                            android:padding="8dp"/>
+
+                        <Spinner
+                            android:id="@+id/spinnerEventType"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:spinnerMode="dropdown"
+                            android:entries="@array/event_types"/>
+                    </LinearLayout>
+
+                    <!-- Địa điểm -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/event_location_prefix">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eventLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="@string/notes_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etNotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:gravity="top|start"
+                            android:background="@android:drawable/editbox_background"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Nút nhắc -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShowReminderOptions"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/remindBtn_hide"
+                android:icon="@android:drawable/ic_menu_info_details"/>
+
+            <!-- Các lựa chọn nhắc -->
+            <GridLayout
+                android:id="@+id/reminderOptionsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:columnCount="2"
                 android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/select_date_label"
-                    android:textSize="16sp"
-                    android:padding="8dp"
-                    android:drawableStart="@android:drawable/ic_menu_my_calendar"
-                    android:drawablePadding="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/select_date_hint"
-                    android:textSize="16sp"
-                    android:padding="8dp"
-                    android:gravity="end"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawablePadding="8dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/select_time_label"
-                    android:textSize="16sp"
-                    android:padding="8dp"
-                    android:drawableStart="@android:drawable/ic_menu_recent_history"
-                    android:drawablePadding="8dp"/>
-
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/select_time_hint"
-                    android:textSize="16sp"
-                    android:padding="8dp"
-                    android:gravity="end"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawablePadding="8dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/repeat_label"
-                    android:textSize="16sp"
-                    android:padding="8dp"/>
-
-                <Spinner
-                    android:id="@+id/spinnerRepeat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/repeat_options"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/event_type_label"
-                    android:textSize="16sp"
-                    android:padding="8dp"/>
-
-                <Spinner
-                    android:id="@+id/spinnerEventType"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/event_types"/>
-            </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:padding="8dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="@string/reminder_label"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:padding="8dp"/>-->
-
-<!--                <Spinner-->
-<!--                    android:id="@+id/spinnerReminder"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:entries="@array/reminder_options"/>-->
-<!--            </LinearLayout>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <Button
-                    android:id="@+id/btnShowReminderOptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/remindBtn_hide"/>
-
-                <GridLayout
-                    android:id="@+id/reminderOptionsContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <EditText
-                    android:id="@+id/eventLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/event_location_prefix" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/notes_label"
-                    android:textSize="16sp"
-                    android:padding="8dp"/>
-
-                <EditText
-                    android:id="@+id/etNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:hint="@string/notes_hint"
-                    android:background="@android:drawable/editbox_background"
-                    android:padding="8dp"
-                    android:gravity="top|start"/>
-            </LinearLayout>
+                android:visibility="gone"
+                android:padding="8dp"/>
 
         </LinearLayout>
     </ScrollView>

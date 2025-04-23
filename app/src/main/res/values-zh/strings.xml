@@ -148,6 +148,10 @@
     <string name="is_coming">即将到来!</string>
     <string name="will_begin_in">将于</string>
 
+    <!--giaodien-->
+    <string name="night_mode_option">切换到夜间模式</string>
+    <string name="light_mode_option">切换到灯光模式</string>
+
     <string name="login_register_button">登录 / 注册</string>
     <string name="logout_success">退出登录成功</string>
 

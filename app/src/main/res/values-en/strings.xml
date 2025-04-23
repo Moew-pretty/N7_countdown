@@ -147,6 +147,10 @@
     <string name="is_coming">is coming!</string>
     <string name="will_begin_in">will begin in</string>
 
+    <!--giaodien-->
+    <string name="night_mode_option">Change to Night mode</string>
+    <string name="light_mode_option">Change to Light mode</string>
+
     <string name="login_register_button">Login / Register</string>
     <string name="logout_success">Logout successful</string>
 </resources>

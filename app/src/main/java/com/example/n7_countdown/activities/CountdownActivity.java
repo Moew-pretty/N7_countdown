@@ -2,8 +2,6 @@ package com.example.n7_countdown.activities;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +35,7 @@ public class CountdownActivity extends AppCompatActivity {
     private TimeEvent event;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
+    private ImageButton editBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class CountdownActivity extends AppCompatActivity {
         }
 
         String imageUriStr = event.getImageUri();
-        if (imageUriStr != null && !imageUriStr.equals("")) {
+        if (imageUriStr != null && !imageUriStr.isEmpty()) {
             applyBackground(imageUriStr);
         }
 
@@ -94,6 +93,13 @@ public class CountdownActivity extends AppCompatActivity {
         LinearLayout backButton = findViewById(R.id.backButtonLayout);
         backButton.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
+        });
+
+        editBtn = findViewById(R.id.btnEditEvent);
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(CountdownActivity.this, EditEventActivity.class);
+            intent.putExtra("eventId", event.getId());
+            startActivity(intent);
         });
 
     }

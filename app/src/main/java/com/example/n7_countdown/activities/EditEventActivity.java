@@ -28,8 +28,9 @@ import java.util.Set;
 public class EditEventActivity extends BaseActivity {
 
     private EditText editName, editNote, editLocation;
-    private TextView txtSelectedDateTime;
-    private Button btnPickDateTime, btnSave, btnCancel;
+    private Button btnSave, btnCancel;
+    private TextView tvDate, tvTime;
+    private Calendar calendar;
     private long selectedTimestampMillis = -1;
     private int eventId;
     private final Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
@@ -43,8 +44,10 @@ public class EditEventActivity extends BaseActivity {
         editName = findViewById(R.id.editEventName);
         editNote = findViewById(R.id.editEventNote);
         editLocation = findViewById(R.id.editEventLocation);
-        txtSelectedDateTime = findViewById(R.id.txtSelectedDateTime);
-        btnPickDateTime = findViewById(R.id.btnPickDateTime);
+
+        tvDate = findViewById(R.id.tvDate);
+        tvTime = findViewById(R.id.tvTime);
+
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSaveEvent);
 
@@ -72,8 +75,6 @@ public class EditEventActivity extends BaseActivity {
             editNote.setText(event.getNote());
             editLocation.setText(event.getLocation());
             selectedTimestampMillis = event.getTimestampMillis();
-            txtSelectedDateTime.setText(TimeUtils.formatDateTimeShort(
-                    TimeUtils.millisToLocalDateTime(selectedTimestampMillis)));
 
             for (ReminderTimes reminder : dbHelper.getReminderTimesByEventId(eventId)) {
                 for (Map.Entry<CheckBox, Long> entry : reminderOptionMap.entrySet()) {
@@ -84,7 +85,9 @@ public class EditEventActivity extends BaseActivity {
             }
         }
 
-        btnPickDateTime.setOnClickListener(v -> showDateTimePicker());
+        calendar = Calendar.getInstance();
+        tvDate.setOnClickListener(v -> openDatePicker());
+        tvTime.setOnClickListener(v -> openTimePicker());
 
         btnCancel.setOnClickListener(v -> {
             finish(); // quay lại activity trước đó
@@ -119,16 +122,32 @@ public class EditEventActivity extends BaseActivity {
         });
     }
 
-    private void showDateTimePicker() {
-        final Calendar calendar = Calendar.getInstance();
-        new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            new TimePickerDialog(this, (view1, hour, minute) -> {
-                calendar.set(year, month, dayOfMonth, hour, minute);
-                selectedTimestampMillis = calendar.getTimeInMillis();
-                txtSelectedDateTime.setText(TimeUtils.formatDateTimeShort(
-                        TimeUtils.millisToLocalDateTime(selectedTimestampMillis)));
-            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    private void openDatePicker() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+            calendar.set(Calendar.YEAR, selectedYear);
+            calendar.set(Calendar.MONTH, selectedMonth);
+            calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+
+            String dateStr = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
+            tvDate.setText(dateStr);
+        }, year, month, day).show();
+    }
+
+    private void openTimePicker() {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        new TimePickerDialog(this, (view, selectedHour, selectedMinute) -> {
+            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+            calendar.set(Calendar.MINUTE, selectedMinute);
+
+            String timeStr = String.format("%02d:%02d", selectedHour, selectedMinute);
+            tvTime.setText(timeStr);
+        }, hour, minute, true).show();
     }
 
     private void setupReminderOptions() {
