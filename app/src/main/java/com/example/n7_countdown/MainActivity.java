@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity {
                     }
 
                     TextView eventTime = cardView.findViewById(R.id.eventTime);
-                    EditText eventName = cardView.findViewById(R.id.eventName);
+                    TextView eventName = cardView.findViewById(R.id.eventName);
                     TextView countdownDays = cardView.findViewById(R.id.countdownText_general);
                     TextView countdownHours = cardView.findViewById(R.id.countdownText_hours);
 
