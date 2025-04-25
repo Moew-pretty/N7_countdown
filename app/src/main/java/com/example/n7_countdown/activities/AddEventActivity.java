@@ -83,7 +83,7 @@ public class AddEventActivity extends BaseActivity {
             }
         });
 
-        ivClose.setOnClickListener(v -> finish());
+        ivClose.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         btnSave.setOnClickListener(v -> saveEvent());
 
