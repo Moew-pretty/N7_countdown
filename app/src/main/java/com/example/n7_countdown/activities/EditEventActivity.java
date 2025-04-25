@@ -30,7 +30,7 @@ public class EditEventActivity extends BaseActivity {
     private EditText editName, editNote, editLocation;
     private Button btnSave, btnCancel;
     private TextView tvDate, tvTime;
-    private Calendar calendar;
+    private Calendar calendar = Calendar.getInstance();
     private long selectedTimestampMillis = -1;
     private int eventId;
     private final Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
@@ -134,6 +134,8 @@ public class EditEventActivity extends BaseActivity {
 
             String dateStr = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
             tvDate.setText(dateStr);
+
+            selectedTimestampMillis = calendar.getTimeInMillis();
         }, year, month, day).show();
     }
 
@@ -147,6 +149,8 @@ public class EditEventActivity extends BaseActivity {
 
             String timeStr = String.format("%02d:%02d", selectedHour, selectedMinute);
             tvTime.setText(timeStr);
+
+            selectedTimestampMillis = calendar.getTimeInMillis();
         }, hour, minute, true).show();
     }
 

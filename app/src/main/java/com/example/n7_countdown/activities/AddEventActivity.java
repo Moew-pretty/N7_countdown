@@ -33,7 +33,7 @@ import java.util.Set;
 
 public class AddEventActivity extends BaseActivity {
     private TextView tvDate, tvTime, tvCountdownValue;
-    private Calendar calendar;
+    private Calendar calendar = Calendar.getInstance();
     private Spinner spinnerRepeat, spinnerEventType, spinnerReminder;
 
     private Map<CheckBox, Long> reminderOptionMap = new HashMap<>();
@@ -103,6 +103,8 @@ public class AddEventActivity extends BaseActivity {
 
             String dateStr = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
             tvDate.setText(dateStr);
+
+            selectedMillis = calendar.getTimeInMillis();
         }, year, month, day).show();
     }
 
@@ -116,6 +118,8 @@ public class AddEventActivity extends BaseActivity {
 
             String timeStr = String.format("%02d:%02d", selectedHour, selectedMinute);
             tvTime.setText(timeStr);
+
+            selectedMillis = calendar.getTimeInMillis();
         }, hour, minute, true).show();
     }
 
