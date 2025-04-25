@@ -1,7 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.N7_countdown" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <!-- Navigation bar (dark theme: đen) -->
+        <item name="android:navigationBarColor">?attr/colorBackground</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+    <style name="Theme.N7_countdown" parent="Base.Theme.N7_countdown"/>
 </resources>

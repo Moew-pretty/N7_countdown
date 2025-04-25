@@ -6,4 +6,8 @@
     <color name="green">#4CAF50</color>
     <color name="purple_500">#6200EE</color>
     <color name="teal_700">#018786</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#F5F5F5</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
 </resources>

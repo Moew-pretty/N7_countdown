@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?attr/colorBackground">
 
     <ScrollView
         android:id="@+id/scrollContent"
@@ -17,59 +17,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="?attr/colorBackground">
 
             <!-- Thanh tiêu đề -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFEBEE"
-                android:padding="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/ivClose"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:contentDescription="Close"
                     android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    app:tint="#666666"
-                    android:contentDescription="Close"/>
+                    app:tint="#666666" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="@string/add_event_title"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/save_button"
-                    android:textColor="#FFFFFF"
                     android:backgroundTint="#42A5F5"
-                    android:paddingHorizontal="16dp"/>
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/save_button"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <!-- Vòng tròn hiển thị giá trị -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/colorBackground"
                 android:gravity="center"
                 android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="88dp"
                     android:layout_height="88dp"
-                    android:orientation="vertical"
-                    android:gravity="center"
                     android:background="@drawable/circle_gradient"
-                    android:elevation="4dp">
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvCountdownValue"
@@ -83,10 +86,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:text="@string/days_label"
                         android:textColor="#EEEEEE"
-                        android:textSize="12sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -102,7 +105,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:background="?attr/colorBackground">
 
                     <!-- Tên sự kiện -->
                     <com.google.android.material.textfield.TextInputLayout
@@ -280,6 +284,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="?attr/colorBackground"
         app:menu="@menu/bottom_nav_menu"/>
 </RelativeLayout>
