@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.n7_countdown.activities.BaseActivity;
 import com.example.n7_countdown.activities.CountdownActivity;
 import com.example.n7_countdown.activities.EditEventActivity;
@@ -23,20 +26,28 @@ import com.example.n7_countdown.models.TimeEvent;
 import com.example.n7_countdown.storage.TimeEventDatabaseHelper;
 import com.example.n7_countdown.utils.TimeUtils;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends BaseActivity {
-    ViewGroup container;
-    private TimeEventDatabaseHelper dbHelper;
 
+    private ViewGroup container;
+    private TimeEventDatabaseHelper dbHelper;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setupBottomNavigation(R.id.nav_home);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">N7 Countdown</string>
-    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">1:633796706158:android:76bd9e7b583b5182b0cb7f.apps.googleusercontent.com</string>
 
     <!-- LoginActivity -->
     <string name="login_title">Đăng nhập</string>
@@ -39,9 +39,9 @@
     <!-- SettingsActivity -->
     <string name="settings_title">Cài đặt</string>
     <string name="group_name_default">Nhóm 7</string>
-    <string name="email_default">khongthienphien@gmail.com</string>
+    <string name="email_default">khonglamphien@gmail.com</string>
     <string name="error_not_logged_in">Vui lòng đăng nhập để sử dụng đầy đủ tính năng</string>
-    <string name="error_user_not_found">Không tìm thấy thông tin người dùng</string>
+ <!--   <string name="error_user_not_found">Không tìm thấy thông tin người dùng</string>-->
     <string name="rename_option">Đổi tên</string>
     <string name="backup_option">Sao lưu</string>
     <string name="language_option">Ngôn ngữ</string>
